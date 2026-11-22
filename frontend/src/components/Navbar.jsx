@@ -110,6 +110,17 @@ export default function Navbar() {
                 Dashboard
               </Link>
               <Link
+                to="/employer/jobs"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  isActive('/employer/jobs')
+                    ? 'text-violet-400 bg-violet-500/10'
+                    : 'text-slate-300 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Briefcase className="w-4 h-4 text-violet-400" />
+                My Jobs
+              </Link>
+              <Link
                 to="/employer/post-job"
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                   isActive('/employer/post-job')
