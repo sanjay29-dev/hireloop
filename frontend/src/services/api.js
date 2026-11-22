@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Base Axios instance pointing to the backend API
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
   headers: {
@@ -18,6 +17,22 @@ api.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+// Response interceptor to handle unauthenticated 401 responses
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // If unauthorized and we had a token, session may have expired
+      if (localStorage.getItem('hireloop_token')) {
+        localStorage.removeItem('hireloop_token');
+        localStorage.removeItem('hireloop_user');
+        window.location.href = '/login?expired=true';
+      }
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default api;
