@@ -47,30 +47,39 @@ export default function LandingPage() {
   const featuredJobs = [
     {
       id: 1,
-      title: 'Senior Java Backend Engineer',
-      company: 'CloudSphere Labs',
-      location: 'Remote',
+      title: 'Senior Full Stack Java Engineer',
+      company: 'Razorpay Software',
+      location: 'Bangalore, Karnataka, India',
       type: 'FULL_TIME',
-      salary: '$120k - $150k',
-      tags: ['Java 17', 'Spring Boot', 'MySQL', 'REST API'],
+      salary: '₹18 - ₹28 LPA',
+      tags: ['Java 17', 'Spring Boot', 'React', 'MySQL'],
     },
     {
       id: 2,
-      title: 'Full Stack React Developer',
-      company: 'NextGen Digital',
-      location: 'New York, NY',
+      title: 'Java Spring Boot Developer',
+      company: 'Infosys Digital',
+      location: 'Bangalore, Karnataka, India',
       type: 'FULL_TIME',
-      salary: '$95k - $130k',
-      tags: ['React', 'TypeScript', 'Tailwind', 'Node.js'],
+      salary: '₹12 - ₹18 LPA',
+      tags: ['Spring Boot', 'JPA', 'MySQL', 'Docker'],
     },
     {
       id: 3,
-      title: 'DevOps & Cloud Architect',
-      company: 'Apex Systems',
-      location: 'Austin, TX (Hybrid)',
-      type: 'CONTRACT',
-      salary: '$80/hr - $100/hr',
-      tags: ['AWS', 'Docker', 'Kubernetes', 'CI/CD'],
+      title: 'Frontend React Developer',
+      company: 'Swiggy Labs',
+      location: 'Hyderabad, Telangana, India',
+      type: 'FULL_TIME',
+      salary: '₹10 - ₹16 LPA',
+      tags: ['React', 'Tailwind CSS', 'Vite', 'Framer Motion'],
+    },
+    {
+      id: 4,
+      title: 'Staff Infrastructure Engineer',
+      company: 'Stripe Global',
+      location: 'San Francisco, CA, USA',
+      type: 'FULL_TIME',
+      salary: '$150k - $190k / yr',
+      tags: ['Distributed Systems', 'Java', 'Cloud', 'High Availability'],
     },
   ];
 
@@ -239,7 +248,7 @@ export default function LandingPage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredJobs.map((job) => (
             <Card key={job.id} hover={true} className="flex flex-col justify-between">
               <div>
