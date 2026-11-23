@@ -39,8 +39,7 @@ public class JobService {
     }
 
     /**
-     * Search & Filter Jobs with Pagination and Sorting
-     * Business Rule: Only returns ACTIVE jobs from ACTIVE and APPROVED companies
+     * Search & Filter Jobs with Pagination and Sorting.
      */
     @Transactional(readOnly = true)
     public Page<JobResponse> searchJobs(String keyword,

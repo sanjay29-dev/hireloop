@@ -60,7 +60,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        log.info("Starting Hireloop Data Initialization (Phase 8 seed data check)...");
+        log.info("Starting Hireloop Data Initialization...");
 
         // 1. Seed Default Admin User
         seedAdminUser();

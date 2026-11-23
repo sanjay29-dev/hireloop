@@ -47,7 +47,7 @@ export default function Toast({
         {onClose && (
           <button
             onClick={onClose}
-            className="p-1 rounded-md text-slate-400 hover:text-white transition-colors"
+            className="p-1 rounded-md text-slate-400 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>

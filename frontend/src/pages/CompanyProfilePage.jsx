@@ -75,20 +75,20 @@ export default function CompanyProfilePage() {
   const getStatusBadge = (status) => {
     if (status === 'APPROVED') {
       return (
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold border border-emerald-500/30 text-xs">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-400 font-semibold dark:border-emerald-500/30 text-xs">
           <CheckCircle2 className="w-3.5 h-3.5" /> Approved by Admin
         </span>
       );
     }
     if (status === 'REJECTED') {
       return (
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/15 text-rose-400 font-semibold border border-rose-500/30 text-xs">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-500/15 dark:text-rose-400 font-semibold dark:border-rose-500/30 text-xs">
           <XCircle className="w-3.5 h-3.5" /> Rejected
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/30 text-xs">
+      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-400 font-semibold dark:border-amber-500/30 text-xs">
         <Clock className="w-3.5 h-3.5" /> Pending Review
       </span>
     );
@@ -115,14 +115,14 @@ export default function CompanyProfilePage() {
         <div>
           <Link
             to="/employer/dashboard"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors mb-3"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors mb-3"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Dashboard
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Company Profile
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Manage public details that candidates see when applying for your jobs.
           </p>
         </div>

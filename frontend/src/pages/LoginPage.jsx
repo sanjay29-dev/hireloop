@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Mail, Lock, LogIn, Sparkles } from 'lucide-react';
+import { Mail, Lock, LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -66,17 +66,17 @@ export default function LoginPage() {
               </div>
             </div>
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Welcome Back
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Sign in to access your Hireloop portal
           </p>
         </div>
 
         <Card className="p-8">
           {errorMessage && (
-            <div className="mb-6 p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs sm:text-sm leading-relaxed">
+            <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-500/15 border border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs sm:text-sm leading-relaxed">
               {errorMessage}
             </div>
           )}
@@ -116,16 +116,16 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-white/10 text-center text-xs text-slate-400 space-y-2">
+          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 text-center text-xs text-slate-600 dark:text-slate-400 space-y-2">
             <p>
               New Candidate?{' '}
-              <Link to="/register/candidate" className="text-teal-400 hover:underline font-medium">
+              <Link to="/register/candidate" className="text-teal-600 dark:text-teal-400 hover:underline font-semibold">
                 Register as Candidate
               </Link>
             </p>
             <p>
               Hiring for your team?{' '}
-              <Link to="/register/employer" className="text-violet-400 hover:underline font-medium">
+              <Link to="/register/employer" className="text-violet-600 dark:text-violet-400 hover:underline font-semibold">
                 Register as Employer
               </Link>
             </p>

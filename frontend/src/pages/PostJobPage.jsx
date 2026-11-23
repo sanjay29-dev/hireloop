@@ -109,14 +109,14 @@ export default function PostJobPage() {
   if (!isApproved && !isEditMode) {
     return (
       <PageTransition className="max-w-3xl mx-auto px-4 py-16 text-center">
-        <Card className="p-10 border-amber-500/30 bg-navy-900/80">
-          <div className="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto mb-6">
+        <Card className="p-10 border-amber-200 dark:border-amber-500/30 bg-amber-50/40 dark:bg-navy-900/80">
+          <div className="w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-500/20 border border-amber-200 dark:border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 mx-auto mb-6 shadow-sm">
             <Clock className="w-8 h-8 animate-pulse" />
           </div>
-          <h2 className="text-2xl font-black text-white mb-3">
+          <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-3">
             Approval Required to Post Jobs
           </h2>
-          <p className="text-sm text-slate-300 max-w-lg mx-auto mb-6 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-slate-300 max-w-lg mx-auto mb-6 leading-relaxed">
             Your company account (<strong>{user?.companyName}</strong>) is currently pending admin review. As soon as an administrator verifies and approves your registration, you will be able to post and manage job listings.
           </p>
           <div className="flex items-center justify-center gap-4">
@@ -153,10 +153,10 @@ export default function PostJobPage() {
         >
           <ArrowLeft className="w-4 h-4" /> Back to My Jobs
         </Link>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           {isEditMode ? 'Edit Job Posting' : 'Create New Job Listing'}
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
           {isEditMode
             ? 'Update the requirements and details for this role.'
             : 'Fill in the position requirements to start collecting applications.'}
@@ -165,7 +165,7 @@ export default function PostJobPage() {
 
       <Card className="p-8">
         {errorMessage && (
-          <div className="mb-6 p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs sm:text-sm">
+          <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-500/15 border border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs sm:text-sm">
             {errorMessage}
           </div>
         )}
@@ -260,7 +260,7 @@ export default function PostJobPage() {
             name="description"
             type="textarea"
             rows={7}
-            placeholder="Outline the responsibilities, qualifications, tech stack, and benefits..."
+            placeholder="Outline the responsibilities, qualifications, required technologies, and benefits..."
             value={formData.description}
             onChange={handleChange}
             error={fieldErrors.description}

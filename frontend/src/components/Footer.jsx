@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -72,27 +72,41 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Tech Stack */}
+          {/* Company & Support */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4">
-              Technology Stack
+              Company
             </h4>
-            <div className="flex flex-wrap gap-1.5 text-[11px] text-slate-400">
-              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10">Spring Boot 3</span>
-              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10">React 18</span>
-              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10">MySQL</span>
-              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10">JWT</span>
-              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10">Tailwind CSS</span>
-              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10">Framer Motion</span>
-            </div>
+            <ul className="space-y-2 text-xs text-slate-400">
+              <li>
+                <Link to="/jobs" className="hover:text-white transition-colors">
+                  About Hireloop
+                </Link>
+              </li>
+              <li>
+                <Link to="/jobs" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/jobs" className="hover:text-white transition-colors">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link to="/jobs" className="hover:text-white transition-colors">
+                  Help & Support
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {new Date().getFullYear()} Hireloop Portal. Built with clean Spring Boot & React.</p>
-          <p className="flex items-center gap-1">
-            Engineered with <Sparkles className="w-3.5 h-3.5 text-violet-400" /> for modern job seekers.
+          <p>© {new Date().getFullYear()} Hireloop. All rights reserved.</p>
+          <p className="flex items-center gap-1.5">
+            Built with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> for job seekers & recruiters.
           </p>
         </div>
       </div>

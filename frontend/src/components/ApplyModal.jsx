@@ -110,7 +110,7 @@ export default function ApplyModal({
           </div>
           <h3 className="text-xl font-bold text-white">Application Submitted!</h3>
           <p className="text-xs text-slate-300 max-w-xs mx-auto">
-            Your application for <strong>{job.title}</strong> has been sent to {job.companyName}.
+            Your application for <strong className="text-white">{job.title}</strong> has been sent to {job.companyName}.
           </p>
         </div>
       ) : (
@@ -152,7 +152,7 @@ export default function ApplyModal({
                   name="resumeChoice"
                   checked={useDefault}
                   onChange={() => setUseDefault(true)}
-                  className="mt-1 text-violet-500 focus:ring-violet-400"
+                  className="mt-1 text-violet-600 focus:ring-violet-500"
                 />
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
@@ -181,7 +181,7 @@ export default function ApplyModal({
                 name="resumeChoice"
                 checked={!useDefault}
                 onChange={() => setUseDefault(false)}
-                className="mt-1 text-teal-500 focus:ring-teal-400"
+                className="mt-1 text-teal-600 focus:ring-teal-500"
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">

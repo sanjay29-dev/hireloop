@@ -47,11 +47,7 @@ public class ApplicationService {
     }
 
     /**
-     * Submit an application to a job
-     * Business Rules:
-     * - Uses default resume automatically, OR uploads a custom resume for that application
-     * - Duplicate application to the same job is strictly blocked
-     * - Only active jobs from approved companies can receive applications
+     * Submit an application to a job.
      */
     @Transactional
     public ApplicationResponse applyToJob(User candidate, Long jobId, boolean useDefaultResume, MultipartFile customResume) {
@@ -68,7 +64,7 @@ public class ApplicationService {
             throw new BadRequestException("This employer is not authorized to accept applications.");
         }
 
-        // Rule: Duplicate applications blocked
+        // Prevent duplicate applications
         if (applicationRepository.existsByJobIdAndCandidateId(jobId, candidate.getId())) {
             throw new BadRequestException("You have already submitted an application for this position.");
         }

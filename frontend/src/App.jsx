@@ -23,7 +23,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import JobsPage from './pages/JobsPage';
 import JobDetailsPage from './pages/JobDetailsPage';
 
-function App() {
+export default function App() {
   return (
     <AuthProvider>
       <Router>
@@ -91,7 +91,7 @@ function App() {
                 }
               />
               <Route
-                path="/employer/jobs/:id/applicants"
+                path="/employer/jobs/:jobId/applicants"
                 element={
                   <ProtectedRoute allowedRoles={['EMPLOYER']}>
                     <EmployerApplicantsPage />
@@ -143,5 +143,3 @@ function App() {
     </AuthProvider>
   );
 }
-
-export default App;

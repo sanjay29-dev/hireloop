@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Mail, Lock, Phone, MapPin, Sparkles, UserPlus } from 'lucide-react';
+import { User, Mail, Lock, Phone, MapPin, UserPlus } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -74,19 +74,19 @@ export default function CandidateRegisterPage() {
       <div className="w-full max-w-lg relative z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-semibold mb-3 border border-teal-500/20">
-            <Sparkles className="w-3.5 h-3.5" /> Candidate Portal
+            <User className="w-3.5 h-3.5" /> Candidate Portal
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Create Candidate Account
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Build your professional profile and unlock top job offers
           </p>
         </div>
 
         <Card className="p-8">
           {errorMessage && (
-            <div className="mb-6 p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs sm:text-sm">
+            <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-500/15 border border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs sm:text-sm">
               {errorMessage}
             </div>
           )}
@@ -161,16 +161,16 @@ export default function CandidateRegisterPage() {
             </Button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-white/5 text-center text-xs text-slate-400 space-y-2">
+          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/5 text-center text-xs text-slate-600 dark:text-slate-400 space-y-2">
             <p>
               Already have an account?{' '}
-              <Link to="/login" className="text-teal-400 hover:underline font-medium">
+              <Link to="/login" className="text-teal-600 dark:text-teal-400 hover:underline font-semibold">
                 Sign In
               </Link>
             </p>
             <p>
               Looking to hire?{' '}
-              <Link to="/register/employer" className="text-violet-400 hover:underline font-medium">
+              <Link to="/register/employer" className="text-violet-600 dark:text-violet-400 hover:underline font-semibold">
                 Register as an Employer
               </Link>
             </p>

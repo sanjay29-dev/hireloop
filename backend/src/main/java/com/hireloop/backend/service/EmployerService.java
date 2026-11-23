@@ -17,6 +17,7 @@ import com.hireloop.backend.exception.ResourceNotFoundException;
 import com.hireloop.backend.repository.ApplicationRepository;
 import com.hireloop.backend.repository.CompanyRepository;
 import com.hireloop.backend.repository.JobRepository;
+import com.hireloop.backend.repository.SavedJobRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,13 +32,16 @@ public class EmployerService {
     private final CompanyRepository companyRepository;
     private final JobRepository jobRepository;
     private final ApplicationRepository applicationRepository;
+    private final SavedJobRepository savedJobRepository;
 
     public EmployerService(CompanyRepository companyRepository,
                            JobRepository jobRepository,
-                           ApplicationRepository applicationRepository) {
+                           ApplicationRepository applicationRepository,
+                           SavedJobRepository savedJobRepository) {
         this.companyRepository = companyRepository;
         this.jobRepository = jobRepository;
         this.applicationRepository = applicationRepository;
+        this.savedJobRepository = savedJobRepository;
     }
 
     /**
@@ -97,8 +101,7 @@ public class EmployerService {
     }
 
     /**
-     * Create a new job listing
-     * Business Rule: Employer must have approvalStatus = APPROVED and company status = ACTIVE
+     * Create a new job listing after verifying company approval and status.
      */
     @Transactional
     public JobResponse createJob(User user, JobRequest request) {
@@ -198,6 +201,10 @@ public class EmployerService {
         if (!job.getCompany().getId().equals(company.getId())) {
             throw new BadRequestException("You do not have permission to delete this job");
         }
+
+        // Delete associated bookmarks and candidate applications first to prevent foreign key constraint violations
+        savedJobRepository.deleteByJobId(jobId);
+        applicationRepository.deleteByJobId(jobId);
 
         jobRepository.delete(job);
     }

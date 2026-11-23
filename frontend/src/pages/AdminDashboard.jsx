@@ -331,15 +331,15 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
         <Card className="hover:border-violet-500/30 transition-all">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Users</span>
-            <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center text-violet-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Users</span>
+            <div className="w-8 h-8 rounded-lg bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center text-violet-600 dark:text-violet-400 shadow-sm">
               <Users className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-black text-white">
+          <div className="text-3xl font-black text-slate-900 dark:text-white">
             {loading ? <SkeletonLoader className="h-8 w-16" /> : stats?.totalUsers || 0}
           </div>
-          <p className="text-xs text-slate-400 mt-1 flex items-center gap-2">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
             <span>{stats?.totalCandidates || 0} Candidates</span>
             <span>•</span>
             <span>{stats?.totalEmployers || 0} Employers</span>
@@ -348,45 +348,45 @@ export default function AdminDashboard() {
 
         <Card className="hover:border-amber-500/30 transition-all">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Pending Approvals</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Pending Approvals</span>
+            <div className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400 shadow-sm">
               <FileCheck className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-black text-amber-400">
+          <div className="text-3xl font-black text-amber-600 dark:text-amber-400">
             {loading ? <SkeletonLoader className="h-8 w-16" /> : stats?.pendingCompanies || 0}
           </div>
-          <p className="text-xs text-amber-400/80 mt-1">
+          <p className="text-xs text-amber-600 dark:text-amber-400/80 mt-1">
             Companies awaiting your review
           </p>
         </Card>
 
         <Card className="hover:border-teal-500/30 transition-all">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Companies</span>
-            <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Companies</span>
+            <div className="w-8 h-8 rounded-lg bg-teal-50 dark:bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 shadow-sm">
               <Building2 className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-black text-white">
+          <div className="text-3xl font-black text-slate-900 dark:text-white">
             {loading ? <SkeletonLoader className="h-8 w-16" /> : stats?.totalCompanies || 0}
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {stats?.approvedCompanies || 0} approved businesses
           </p>
         </Card>
 
         <Card className="hover:border-cyan-500/30 transition-all">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Job Postings</span>
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Job Postings</span>
+            <div className="w-8 h-8 rounded-lg bg-cyan-50 dark:bg-cyan-500/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shadow-sm">
               <Briefcase className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-black text-white">
+          <div className="text-3xl font-black text-slate-900 dark:text-white">
             {loading ? <SkeletonLoader className="h-8 w-16" /> : stats?.totalJobs || 0}
           </div>
-          <p className="text-xs text-slate-400 mt-1 flex items-center gap-2">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
             <span>{stats?.activeJobs || 0} Active</span>
             <span>•</span>
             <span>{stats?.totalApplications || 0} Total Apps</span>
@@ -395,7 +395,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Tabs Navigation */}
-      <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-6 overflow-x-auto no-scrollbar">
+      <div className="flex items-center gap-2 border-b border-slate-200 dark:border-white/10 pb-4 mb-6 overflow-x-auto no-scrollbar">
         <button
           onClick={() => {
             setActiveTab('pending');
@@ -403,14 +403,14 @@ export default function AdminDashboard() {
           }}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'pending'
-              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/5'
+              ? 'bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30 shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
           }`}
         >
           <FileCheck className="w-4 h-4" />
           Pending Approvals
           {pendingCompanies.length > 0 && (
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500 text-navy-950 ml-1">
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500 text-white dark:text-navy-950 ml-1">
               {pendingCompanies.length}
             </span>
           )}
@@ -423,8 +423,8 @@ export default function AdminDashboard() {
           }}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'companies'
-              ? 'bg-violet-600/20 text-violet-300 border border-violet-500/30 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/5'
+              ? 'bg-violet-100 text-violet-800 border border-violet-300 dark:bg-violet-600/20 dark:text-violet-300 dark:border-violet-500/30 shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
           }`}
         >
           <Building2 className="w-4 h-4" />
@@ -438,8 +438,8 @@ export default function AdminDashboard() {
           }}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'jobs'
-              ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/5'
+              ? 'bg-teal-100 text-teal-800 border border-teal-300 dark:bg-teal-500/20 dark:text-teal-300 dark:border-teal-500/30 shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
           }`}
         >
           <Briefcase className="w-4 h-4" />
@@ -453,8 +453,8 @@ export default function AdminDashboard() {
           }}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'users'
-              ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/5'
+              ? 'bg-rose-100 text-rose-800 border border-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/30 shadow-sm'
+              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
           }`}
         >
           <Users className="w-4 h-4" />

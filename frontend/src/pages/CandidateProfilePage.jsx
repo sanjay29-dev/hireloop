@@ -14,7 +14,6 @@ import {
   Download,
   Save,
   ArrowLeft,
-  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
@@ -160,53 +159,53 @@ export default function CandidateProfilePage() {
         >
           <ArrowLeft className="w-4 h-4" /> Back to Candidate Dashboard
         </Link>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Candidate Profile
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
           Keep your professional details and default resume up to date for fast 1-click applications.
         </p>
       </div>
 
       <div className="space-y-8">
         {/* Default Resume Upload Card */}
-        <Card className="p-6 border-teal-500/20">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-4 border-b border-white/10">
+        <Card className="p-6 border-teal-200 dark:border-teal-500/20">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-200 dark:border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400">
+              <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-500/10 border border-teal-200 dark:border-teal-500/20 flex items-center justify-center text-teal-600 dark:text-teal-400 shadow-sm">
                 <FileCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-white">Default PDF Resume</h3>
-                <p className="text-xs text-slate-400">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">Default PDF Resume</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Used automatically when applying for any job on Hireloop.
                 </p>
               </div>
             </div>
 
             {profile?.hasResume ? (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-xs font-semibold border border-emerald-500/30">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-400 text-xs font-semibold dark:border-emerald-500/30">
                 <CheckCircle2 className="w-3.5 h-3.5" /> Resume Active
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 text-amber-400 text-xs font-semibold border border-amber-500/30">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-400 text-xs font-semibold dark:border-amber-500/30">
                 No Resume Uploaded
               </span>
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-navy-900/60 p-4 rounded-xl border border-white/5">
-            <div className="text-xs text-slate-300">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 dark:bg-navy-900/60 p-4 rounded-xl border border-slate-200 dark:border-white/5">
+            <div className="text-xs text-slate-600 dark:text-slate-300">
               {profile?.hasResume ? (
                 <div className="space-y-1">
-                  <p className="font-semibold text-white flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-teal-400" />
+                  <p className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                     {profile.defaultResumePath.split('/').pop()}
                   </p>
-                  <p className="text-slate-400">Ready for instant job applications.</p>
+                  <p className="text-slate-500 dark:text-slate-400">Ready for instant job applications.</p>
                 </div>
               ) : (
-                <p className="text-slate-400">
+                <p className="text-slate-500 dark:text-slate-400">
                   Upload a PDF document (up to 10MB).
                 </p>
               )}

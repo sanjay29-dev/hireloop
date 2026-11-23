@@ -131,12 +131,12 @@ public class AuthService {
             throw new BadCredentialsException("Invalid email or password");
         }
 
-        // Rule: Block login for suspended users
+        // Block login for suspended users
         if (user.getStatus() == UserStatus.SUSPENDED) {
             throw new AccountSuspendedException("Your account has been suspended. Please contact the administrator for assistance.");
         }
 
-        // Rule: A suspended company cannot log in to post
+        // Block login for employers of suspended companies
         if (user.getRole() == Role.EMPLOYER) {
             Company company = companyRepository.findByUserId(user.getId()).orElse(null);
             if (company != null && company.getStatus() == CompanyStatus.SUSPENDED) {

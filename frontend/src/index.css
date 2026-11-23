@@ -10,7 +10,7 @@
   }
 }
 
-/* Glassmorphism utility classes */
+/* Glassmorphism utility classes (Dark Mode) */
 .glass-panel {
   background: rgba(22, 31, 54, 0.65);
   backdrop-filter: blur(14px);

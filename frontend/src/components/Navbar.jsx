@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Modal from './Modal';
+import Button from './Button';
 import {
   Briefcase,
   User,
@@ -18,6 +20,7 @@ import {
 export default function Navbar() {
   const { user, isAuthenticated, role, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -175,9 +178,11 @@ export default function Navbar() {
                 </span>
               </div>
               <button
-                onClick={handleLogout}
-                title="Logout"
-                className="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all cursor-pointer"
+                type="button"
+                onClick={() => setShowLogoutConfirm(true)}
+                title="Log Out"
+                className="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all cursor-pointer flex items-center justify-center"
+                aria-label="Log Out"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -201,7 +206,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile menu trigger */}
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center gap-2">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 focus:outline-none"
@@ -285,13 +290,14 @@ export default function Navbar() {
                   <p className="text-xs text-slate-400 capitalize">{role}</p>
                 </div>
                 <button
+                  type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    handleLogout();
+                    setShowLogoutConfirm(true);
                   }}
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center gap-1.5 cursor-pointer"
                 >
-                  Logout
+                  <LogOut className="w-3.5 h-3.5" /> Logout
                 </button>
               </div>
             </>
@@ -322,6 +328,51 @@ export default function Navbar() {
           )}
         </div>
       )}
+
+      {/* Logout Confirmation Modal */}
+      <Modal
+        isOpen={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        title="Confirm Sign Out"
+        maxWidth="max-w-md"
+      >
+        <div className="space-y-4">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center flex-shrink-0 text-rose-400">
+              <LogOut className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">
+                Are you sure you want to log out?
+              </h4>
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                You are currently signed in as <strong className="text-slate-200">{user?.email}</strong>. Logging out will end your current session.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowLogoutConfirm(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="danger"
+              size="sm"
+              icon={LogOut}
+              onClick={() => {
+                setShowLogoutConfirm(false);
+                handleLogout();
+              }}
+            >
+              Log Out
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </nav>
   );
 }

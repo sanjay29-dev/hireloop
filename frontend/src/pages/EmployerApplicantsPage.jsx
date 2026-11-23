@@ -15,7 +15,6 @@ import {
   Calendar,
   CheckCircle2,
   Clock,
-  Sparkles,
 } from 'lucide-react';
 import api from '../services/api';
 import Card from '../components/Card';
@@ -123,21 +122,21 @@ export default function EmployerApplicantsPage() {
             <ArrowLeft className="w-4 h-4" /> Back to My Jobs
           </Link>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Applicants: <span className="text-teal-400">{job?.title || 'Job'}</span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              Applicants: <span className="text-teal-600 dark:text-teal-400">{job?.title || 'Job'}</span>
             </h1>
-            <span className="px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold border border-violet-500/30">
+            <span className="px-3 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 dark:bg-violet-500/20 dark:text-violet-300 text-xs font-bold dark:border-violet-500/30">
               {applicants.length} Total
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Review candidate resumes, evaluate skill profiles, and progress candidates through the hiring pipeline.
           </p>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="glass-panel p-4 rounded-2xl border border-white/10 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="glass-panel p-4 rounded-2xl border border-slate-200 dark:border-white/10 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Status Filter Tabs */}
         <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
           {['ALL', 'APPLIED', 'SHORTLISTED', 'INTERVIEW', 'SELECTED', 'REJECTED'].map((tab) => (
@@ -146,8 +145,8 @@ export default function EmployerApplicantsPage() {
               onClick={() => setFilter(tab)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 filter === tab
-                  ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40 shadow-glow-teal'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                  ? 'bg-teal-100 text-teal-800 border border-teal-300 dark:bg-teal-500/20 dark:text-teal-300 dark:border-teal-500/40 shadow-sm dark:shadow-glow-teal'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent'
               }`}
             >
               {tab} (
@@ -167,7 +166,7 @@ export default function EmployerApplicantsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search candidate or skill..."
-            className="w-full rounded-xl bg-navy-900/80 border border-white/10 text-white text-xs pl-9 pr-3 py-2 focus:outline-none focus:border-violet-500"
+            className="w-full rounded-xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white text-xs pl-9 pr-3 py-2 focus:outline-none focus:border-violet-500"
           />
         </div>
       </div>
@@ -176,12 +175,12 @@ export default function EmployerApplicantsPage() {
       {loading ? (
         <SkeletonLoader type="list" count={4} />
       ) : filteredApplicants.length === 0 ? (
-        <Card className="p-16 text-center border-dashed border-white/10 max-w-lg mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-4">
+        <Card className="p-16 text-center border-dashed border-slate-200 dark:border-white/10 max-w-lg mx-auto">
+          <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-4">
             <Users className="w-8 h-8" />
           </div>
-          <h3 className="text-lg font-bold text-white mb-2">No Applicants Found</h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No Applicants Found</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
             {applicants.length === 0
               ? 'Applications will appear here as candidates submit for this position.'
               : 'No applicants match the current filter criteria.'}
@@ -195,27 +194,27 @@ export default function EmployerApplicantsPage() {
                 {/* Candidate Info */}
                 <div className="space-y-2 flex-1">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="text-base font-bold text-white">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
                       {app.candidateName}
                     </h3>
-                    <span className="text-xs text-slate-400">({app.candidateEmail})</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">({app.candidateEmail})</span>
                     {app.candidatePhone && (
-                      <span className="text-xs text-slate-400 flex items-center gap-1">
-                        <Phone className="w-3 h-3 text-slate-500" />
+                      <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                        <Phone className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                         {app.candidatePhone}
                       </span>
                     )}
                   </div>
 
                   {app.candidateHeadline && (
-                    <p className="text-xs text-violet-300 font-medium">
+                    <p className="text-xs text-violet-600 dark:text-violet-300 font-medium">
                       {app.candidateHeadline}
                     </p>
                   )}
 
                   {app.candidateLocation && (
-                    <p className="text-xs text-slate-400 flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-teal-400" />
+                    <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-teal-600 dark:text-teal-400" />
                       {app.candidateLocation}
                     </p>
                   )}
@@ -226,7 +225,7 @@ export default function EmployerApplicantsPage() {
                       {app.candidateSkills.split(',').slice(0, 4).map((s) => (
                         <span
                           key={s}
-                          className="text-[10px] px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-slate-300"
+                          className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/5 dark:text-slate-300 font-medium"
                         >
                           {s.trim()}
                         </span>
@@ -236,7 +235,7 @@ export default function EmployerApplicantsPage() {
                 </div>
 
                 {/* Status Update Dropdown & Action Buttons */}
-                <div className="flex flex-wrap items-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-white/10">
+                <div className="flex flex-wrap items-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-200 dark:border-white/10">
                   {/* Status Dropdown */}
                   <div>
                     <label className="text-[10px] uppercase font-bold text-slate-500 block mb-1">
@@ -246,7 +245,7 @@ export default function EmployerApplicantsPage() {
                       value={app.status}
                       disabled={statusUpdatingId === app.id}
                       onChange={(e) => handleStatusChange(app.id, e.target.value)}
-                      className="rounded-xl bg-navy-900 border border-white/10 text-xs font-semibold px-3 py-1.5 text-white focus:outline-none focus:border-teal-500"
+                      className="rounded-xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-white/10 text-xs font-semibold px-3 py-1.5 text-slate-800 dark:text-white focus:outline-none focus:border-teal-500"
                     >
                       <option value="APPLIED">Applied</option>
                       <option value="SHORTLISTED">Shortlisted</option>

@@ -77,39 +77,39 @@ export default function MyApplicationsPage() {
   const getStatusBadge = (status) => {
     const configs = {
       APPLIED: {
-        bg: 'bg-violet-500/15',
-        text: 'text-violet-400',
-        border: 'border-violet-500/30',
+        bg: 'bg-violet-50 dark:bg-violet-500/15',
+        text: 'text-violet-700 dark:text-violet-400',
+        border: 'border-violet-200 dark:border-violet-500/30',
         label: 'Applied',
       },
       SHORTLISTED: {
-        bg: 'bg-cyan-500/15',
-        text: 'text-cyan-400',
-        border: 'border-cyan-500/30',
+        bg: 'bg-cyan-50 dark:bg-cyan-500/15',
+        text: 'text-cyan-700 dark:text-cyan-400',
+        border: 'border-cyan-200 dark:border-cyan-500/30',
         label: 'Shortlisted',
       },
       INTERVIEW: {
-        bg: 'bg-amber-500/15',
-        text: 'text-amber-400',
-        border: 'border-amber-500/30',
+        bg: 'bg-amber-50 dark:bg-amber-500/15',
+        text: 'text-amber-700 dark:text-amber-400',
+        border: 'border-amber-200 dark:border-amber-500/30',
         label: 'Interview Round',
       },
       SELECTED: {
-        bg: 'bg-emerald-500/15',
-        text: 'text-emerald-400',
-        border: 'border-emerald-500/30',
+        bg: 'bg-emerald-50 dark:bg-emerald-500/15',
+        text: 'text-emerald-700 dark:text-emerald-400',
+        border: 'border-emerald-200 dark:border-emerald-500/30',
         label: 'Selected / Hired',
       },
       REJECTED: {
-        bg: 'bg-rose-500/15',
-        text: 'text-rose-400',
-        border: 'border-rose-500/30',
+        bg: 'bg-rose-50 dark:bg-rose-500/15',
+        text: 'text-rose-700 dark:text-rose-400',
+        border: 'border-rose-200 dark:border-rose-500/30',
         label: 'Not Selected',
       },
       WITHDRAWN: {
-        bg: 'bg-slate-700/20',
-        text: 'text-slate-400',
-        border: 'border-slate-600/30',
+        bg: 'bg-slate-100 dark:bg-slate-700/20',
+        text: 'text-slate-600 dark:text-slate-400',
+        border: 'border-slate-200 dark:border-slate-600/30',
         label: 'Withdrawn',
       },
     };
@@ -151,15 +151,15 @@ export default function MyApplicationsPage() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-2 mb-6 border-b border-white/10 pb-4">
+      <div className="flex flex-wrap items-center gap-2 mb-6 border-b border-slate-200 dark:border-white/10 pb-4">
         {['ALL', 'ACTIVE', 'INTERVIEW', 'SELECTED', 'WITHDRAWN'].map((tab) => (
           <button
             key={tab}
             onClick={() => setFilter(tab)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
               filter === tab
-                ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40 shadow-glow-violet'
-                : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                ? 'bg-violet-100 text-violet-800 border border-violet-300 dark:bg-violet-600/25 dark:text-violet-300 dark:border-violet-500/40 shadow-sm dark:shadow-glow-violet'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent'
             }`}
           >
             {tab} (
@@ -177,14 +177,14 @@ export default function MyApplicationsPage() {
       {loading ? (
         <SkeletonLoader type="list" count={4} />
       ) : filteredApps.length === 0 ? (
-        <Card className="p-16 text-center border-dashed border-white/10 max-w-lg mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-4">
-            <FileText className="w-8 h-8 text-violet-400" />
+        <Card className="p-16 text-center border-dashed border-slate-200 dark:border-white/10 max-w-lg mx-auto">
+          <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-4">
+            <FileText className="w-8 h-8 text-violet-600 dark:text-violet-400" />
           </div>
-          <h3 className="text-lg font-bold text-white mb-2">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
             No {filter !== 'ALL' ? filter.toLowerCase() : ''} applications
           </h3>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto mb-6">
+          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6">
             Explore verified open roles and apply with 1-click using your default resume.
           </p>
           <Link to="/jobs">
@@ -203,33 +203,33 @@ export default function MyApplicationsPage() {
                   <div className="flex flex-wrap items-center gap-3">
                     <Link
                       to={`/jobs/${app.jobId}`}
-                      className="text-lg font-bold text-white hover:text-teal-300 transition-colors"
+                      className="text-lg font-bold text-slate-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
                     >
                       {app.jobTitle}
                     </Link>
                     {getStatusBadge(app.status)}
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
-                    <span className="flex items-center gap-1 text-slate-300 font-medium">
-                      <Building2 className="w-3.5 h-3.5 text-violet-400" />
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+                    <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300 font-medium">
+                      <Building2 className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" />
                       {app.companyName}
                     </span>
                     {app.jobLocation && (
                       <span className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-teal-400" />
+                        <MapPin className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
                         {app.jobLocation}
                       </span>
                     )}
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                      <Calendar className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                       Applied: {new Date(app.appliedAt).toLocaleDateString()}
                     </span>
                   </div>
                 </div>
 
                 {/* Right: Actions */}
-                <div className="flex items-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-white/10">
+                <div className="flex items-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-200 dark:border-white/10">
                   <Button
                     variant="secondary"
                     size="sm"

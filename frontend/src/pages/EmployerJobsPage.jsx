@@ -17,6 +17,7 @@ import api from '../services/api';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
+import Toast from '../components/Toast';
 import SkeletonLoader from '../components/SkeletonLoader';
 import PageTransition from '../components/PageTransition';
 
@@ -31,6 +32,13 @@ export default function EmployerJobsPage() {
   const [closingJob, setClosingJob] = useState(null);
   const [deletingJob, setDeletingJob] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
+
+  // Toast notification state
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+  };
 
   const fetchJobs = async () => {
     try {
@@ -52,10 +60,11 @@ export default function EmployerJobsPage() {
     setActionLoading(true);
     try {
       await api.patch(`/employer/jobs/${closingJob.id}/close`);
+      showToast(`Job "${closingJob.title}" closed successfully.`, 'info');
       setClosingJob(null);
       fetchJobs();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to close job');
+      showToast(err.response?.data?.message || 'Failed to close job', 'error');
     } finally {
       setActionLoading(false);
     }
@@ -66,10 +75,11 @@ export default function EmployerJobsPage() {
     setActionLoading(true);
     try {
       await api.delete(`/employer/jobs/${deletingJob.id}`);
+      showToast(`Job "${deletingJob.title}" permanently deleted.`, 'success');
       setDeletingJob(null);
       fetchJobs();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to delete job');
+      showToast(err.response?.data?.message || 'Failed to delete job', 'error');
     } finally {
       setActionLoading(false);
     }
@@ -83,6 +93,14 @@ export default function EmployerJobsPage() {
 
   return (
     <PageTransition className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      {/* Toast Notification */}
+      <Toast
+        isOpen={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ show: false, message: '', type: 'success' })}
+      />
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
@@ -178,8 +196,10 @@ export default function EmployerJobsPage() {
                         </span>
                       )}
                       {(job.salaryMin || job.salaryMax) && (
-                        <span>
-                          ${job.salaryMin?.toLocaleString()} - ${job.salaryMax?.toLocaleString()}
+                        <span className="font-semibold text-slate-300">
+                          {job.currency === 'USD' ? '$' : '₹'}
+                          {job.salaryMin?.toLocaleString()} - {job.currency === 'USD' ? '$' : '₹'}
+                          {job.salaryMax?.toLocaleString()}
                         </span>
                       )}
                       {job.deadline && (
@@ -195,7 +215,7 @@ export default function EmployerJobsPage() {
                         {job.skills.split(',').map((skill) => (
                           <span
                             key={skill}
-                            className="text-[11px] px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-slate-300"
+                            className="text-[11px] px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-slate-300 font-medium"
                           >
                             {skill.trim()}
                           </span>
@@ -285,9 +305,22 @@ export default function EmployerJobsPage() {
         onClose={() => setDeletingJob(null)}
         title="Confirm Delete Job"
       >
-        <p className="text-sm text-slate-300 mb-6">
-          Are you sure you want to permanently delete <strong>{deletingJob?.title}</strong>? This action cannot be undone.
-        </p>
+        <div className="space-y-3 mb-6">
+          <p className="text-sm text-slate-300">
+            Are you sure you want to permanently delete <strong className="text-white">{deletingJob?.title}</strong>?
+          </p>
+          {deletingJob?.applicantCount > 0 && (
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              <span>
+                This job currently has <strong>{deletingJob.applicantCount} applicant(s)</strong>. Deleting it will permanently delete this posting and remove all associated candidate applications.
+              </span>
+            </div>
+          )}
+          <p className="text-xs text-rose-400/90 font-medium">
+            This action cannot be undone.
+          </p>
+        </div>
         <div className="flex items-center justify-end gap-3">
           <Button variant="ghost" size="sm" onClick={() => setDeletingJob(null)}>
             Cancel
