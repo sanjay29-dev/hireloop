@@ -24,12 +24,13 @@ public class JobRequest {
 
     private Double salaryMin;
     private Double salaryMax;
+    private String currency = "INR";
     private LocalDate deadline;
 
     public JobRequest() {
     }
 
-    public JobRequest(String title, String description, String skills, String location, JobType jobType, Double salaryMin, Double salaryMax, LocalDate deadline) {
+    public JobRequest(String title, String description, String skills, String location, JobType jobType, Double salaryMin, Double salaryMax, String currency, LocalDate deadline) {
         this.title = title;
         this.description = description;
         this.skills = skills;
@@ -37,6 +38,7 @@ public class JobRequest {
         this.jobType = jobType;
         this.salaryMin = salaryMin;
         this.salaryMax = salaryMax;
+        this.currency = currency != null ? currency : "INR";
         this.deadline = deadline;
     }
 
@@ -94,6 +96,14 @@ public class JobRequest {
 
     public void setSalaryMax(Double salaryMax) {
         this.salaryMax = salaryMax;
+    }
+
+    public String getCurrency() {
+        return currency != null ? currency : "INR";
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public LocalDate getDeadline() {

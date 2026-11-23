@@ -99,6 +99,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 // Public health check
                 .requestMatchers("/api/health/**").permitAll()
+                // Public jobs endpoints
+                .requestMatchers("/api/jobs/**").permitAll()
                 // Role-based protected paths
                 .requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
                 .requestMatchers("/api/employer/**").hasRole("EMPLOYER")

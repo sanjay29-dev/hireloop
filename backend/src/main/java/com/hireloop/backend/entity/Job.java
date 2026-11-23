@@ -41,6 +41,9 @@ public class Job {
     @Column(name = "salary_max")
     private Double salaryMax;
 
+    @Column(length = 10)
+    private String currency = "INR";
+
     private LocalDate deadline;
 
     @Enumerated(EnumType.STRING)
@@ -53,7 +56,7 @@ public class Job {
     public Job() {
     }
 
-    public Job(Long id, Company company, String title, String description, String skills, String location, JobType jobType, Double salaryMin, Double salaryMax, LocalDate deadline, JobStatus status, LocalDateTime createdAt) {
+    public Job(Long id, Company company, String title, String description, String skills, String location, JobType jobType, Double salaryMin, Double salaryMax, String currency, LocalDate deadline, JobStatus status, LocalDateTime createdAt) {
         this.id = id;
         this.company = company;
         this.title = title;
@@ -63,6 +66,7 @@ public class Job {
         this.jobType = jobType;
         this.salaryMin = salaryMin;
         this.salaryMax = salaryMax;
+        this.currency = currency != null ? currency : "INR";
         this.deadline = deadline;
         this.status = status != null ? status : JobStatus.ACTIVE;
         this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
@@ -75,6 +79,9 @@ public class Job {
         }
         if (this.status == null) {
             this.status = JobStatus.ACTIVE;
+        }
+        if (this.currency == null || this.currency.trim().isEmpty()) {
+            this.currency = "INR";
         }
     }
 
@@ -151,6 +158,14 @@ public class Job {
         this.salaryMax = salaryMax;
     }
 
+    public String getCurrency() {
+        return currency != null ? currency : "INR";
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public LocalDate getDeadline() {
         return deadline;
     }
@@ -190,6 +205,7 @@ public class Job {
         private JobType jobType;
         private Double salaryMin;
         private Double salaryMax;
+        private String currency = "INR";
         private LocalDate deadline;
         private JobStatus status = JobStatus.ACTIVE;
         private LocalDateTime createdAt;
@@ -239,6 +255,11 @@ public class Job {
             return this;
         }
 
+        public Builder currency(String currency) {
+            this.currency = currency;
+            return this;
+        }
+
         public Builder deadline(LocalDate deadline) {
             this.deadline = deadline;
             return this;
@@ -255,7 +276,7 @@ public class Job {
         }
 
         public Job build() {
-            return new Job(id, company, title, description, skills, location, jobType, salaryMin, salaryMax, deadline, status, createdAt);
+            return new Job(id, company, title, description, skills, location, jobType, salaryMin, salaryMax, currency, deadline, status, createdAt);
         }
     }
 }

@@ -12,6 +12,8 @@ public class JobResponse {
     private Long id;
     private Long companyId;
     private String companyName;
+    private String companyLocation;
+    private String companyLogo;
     private String title;
     private String description;
     private String skills;
@@ -19,10 +21,12 @@ public class JobResponse {
     private JobType jobType;
     private Double salaryMin;
     private Double salaryMax;
+    private String currency = "INR";
     private LocalDate deadline;
     private JobStatus status;
     private LocalDateTime createdAt;
     private long applicantCount;
+    private boolean isSaved = false;
 
     public JobResponse() {
     }
@@ -33,6 +37,8 @@ public class JobResponse {
         if (job.getCompany() != null) {
             response.setCompanyId(job.getCompany().getId());
             response.setCompanyName(job.getCompany().getName());
+            response.setCompanyLocation(job.getCompany().getLocation());
+            response.setCompanyLogo(job.getCompany().getLogoPath());
         }
         response.setTitle(job.getTitle());
         response.setDescription(job.getDescription());
@@ -41,6 +47,7 @@ public class JobResponse {
         response.setJobType(job.getJobType());
         response.setSalaryMin(job.getSalaryMin());
         response.setSalaryMax(job.getSalaryMax());
+        response.setCurrency(job.getCurrency() != null ? job.getCurrency() : "INR");
         response.setDeadline(job.getDeadline());
         response.setStatus(job.getStatus());
         response.setCreatedAt(job.getCreatedAt());
@@ -70,6 +77,22 @@ public class JobResponse {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getCompanyLocation() {
+        return companyLocation;
+    }
+
+    public void setCompanyLocation(String companyLocation) {
+        this.companyLocation = companyLocation;
+    }
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
     }
 
     public String getTitle() {
@@ -128,6 +151,14 @@ public class JobResponse {
         this.salaryMax = salaryMax;
     }
 
+    public String getCurrency() {
+        return currency != null ? currency : "INR";
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public LocalDate getDeadline() {
         return deadline;
     }
@@ -158,5 +189,13 @@ public class JobResponse {
 
     public void setApplicantCount(long applicantCount) {
         this.applicantCount = applicantCount;
+    }
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
     }
 }

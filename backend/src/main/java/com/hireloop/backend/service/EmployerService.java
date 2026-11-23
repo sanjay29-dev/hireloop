@@ -124,6 +124,7 @@ public class EmployerService {
                 .jobType(request.getJobType())
                 .salaryMin(request.getSalaryMin())
                 .salaryMax(request.getSalaryMax())
+                .currency(request.getCurrency() != null ? request.getCurrency() : "INR")
                 .deadline(request.getDeadline())
                 .status(JobStatus.ACTIVE)
                 .build();
@@ -156,6 +157,9 @@ public class EmployerService {
         job.setJobType(request.getJobType());
         job.setSalaryMin(request.getSalaryMin());
         job.setSalaryMax(request.getSalaryMax());
+        if (request.getCurrency() != null) {
+            job.setCurrency(request.getCurrency());
+        }
         job.setDeadline(request.getDeadline());
 
         Job updatedJob = jobRepository.save(job);

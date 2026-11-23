@@ -11,12 +11,15 @@ import LoginPage from './pages/LoginPage';
 import CandidateRegisterPage from './pages/CandidateRegisterPage';
 import EmployerRegisterPage from './pages/EmployerRegisterPage';
 import CandidateDashboard from './pages/CandidateDashboard';
+import CandidateProfilePage from './pages/CandidateProfilePage';
+import SavedJobsPage from './pages/SavedJobsPage';
 import EmployerDashboard from './pages/EmployerDashboard';
 import EmployerJobsPage from './pages/EmployerJobsPage';
 import PostJobPage from './pages/PostJobPage';
 import CompanyProfilePage from './pages/CompanyProfilePage';
 import AdminDashboard from './pages/AdminDashboard';
 import JobsPage from './pages/JobsPage';
+import JobDetailsPage from './pages/JobDetailsPage';
 
 function App() {
   return (
@@ -29,6 +32,7 @@ function App() {
               {/* Public Routes */}
               <Route path="/" element={<LandingPage />} />
               <Route path="/jobs" element={<JobsPage />} />
+              <Route path="/jobs/:id" element={<JobDetailsPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register/candidate" element={<CandidateRegisterPage />} />
               <Route path="/register/employer" element={<EmployerRegisterPage />} />
@@ -43,10 +47,10 @@ function App() {
                 }
               />
               <Route
-                path="/candidate/applications"
+                path="/candidate/profile"
                 element={
                   <ProtectedRoute allowedRoles={['CANDIDATE']}>
-                    <CandidateDashboard />
+                    <CandidateProfilePage />
                   </ProtectedRoute>
                 }
               />
@@ -54,12 +58,12 @@ function App() {
                 path="/candidate/saved"
                 element={
                   <ProtectedRoute allowedRoles={['CANDIDATE']}>
-                    <CandidateDashboard />
+                    <SavedJobsPage />
                   </ProtectedRoute>
                 }
               />
               <Route
-                path="/candidate/profile"
+                path="/candidate/applications"
                 element={
                   <ProtectedRoute allowedRoles={['CANDIDATE']}>
                     <CandidateDashboard />
