@@ -13,8 +13,10 @@ import EmployerRegisterPage from './pages/EmployerRegisterPage';
 import CandidateDashboard from './pages/CandidateDashboard';
 import CandidateProfilePage from './pages/CandidateProfilePage';
 import SavedJobsPage from './pages/SavedJobsPage';
+import MyApplicationsPage from './pages/MyApplicationsPage';
 import EmployerDashboard from './pages/EmployerDashboard';
 import EmployerJobsPage from './pages/EmployerJobsPage';
+import EmployerApplicantsPage from './pages/EmployerApplicantsPage';
 import PostJobPage from './pages/PostJobPage';
 import CompanyProfilePage from './pages/CompanyProfilePage';
 import AdminDashboard from './pages/AdminDashboard';
@@ -66,7 +68,7 @@ function App() {
                 path="/candidate/applications"
                 element={
                   <ProtectedRoute allowedRoles={['CANDIDATE']}>
-                    <CandidateDashboard />
+                    <MyApplicationsPage />
                   </ProtectedRoute>
                 }
               />
@@ -85,6 +87,14 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['EMPLOYER']}>
                     <EmployerJobsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/employer/jobs/:id/applicants"
+                element={
+                  <ProtectedRoute allowedRoles={['EMPLOYER']}>
+                    <EmployerApplicantsPage />
                   </ProtectedRoute>
                 }
               />

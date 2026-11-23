@@ -8,9 +8,7 @@ import {
   Briefcase,
   DollarSign,
   Bookmark,
-  Share2,
   CheckCircle2,
-  Globe,
   Clock,
   Sparkles,
   Send,
@@ -19,6 +17,7 @@ import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import Card from '../components/Card';
 import Button from '../components/Button';
+import ApplyModal from '../components/ApplyModal';
 import SkeletonLoader from '../components/SkeletonLoader';
 import PageTransition from '../components/PageTransition';
 import { formatSalary } from '../utils/formatSalary';
@@ -32,8 +31,11 @@ export default function JobDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [hasApplied, setHasApplied] = useState(false);
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
 
   useEffect(() => {
+    // 1. Fetch Job Details
     api.get(`/jobs/${id}`)
       .then((res) => {
         setJob(res.data.data);
@@ -43,7 +45,16 @@ export default function JobDetailsPage() {
         setError(err.response?.data?.message || 'Job not found');
         setLoading(false);
       });
-  }, [id]);
+
+    // 2. If Candidate is logged in, check if already applied
+    if (isAuthenticated && role === 'CANDIDATE') {
+      api.get(`/candidate/applications/check/${id}`)
+        .then((res) => {
+          setHasApplied(res.data.data?.hasApplied || false);
+        })
+        .catch(() => {});
+    }
+  }, [id, isAuthenticated, role]);
 
   const toggleSave = async () => {
     if (!isAuthenticated) {
@@ -69,6 +80,18 @@ export default function JobDetailsPage() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleApplyClick = () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    if (role !== 'CANDIDATE') {
+      alert('Only candidates can submit applications.');
+      return;
+    }
+    setIsApplyModalOpen(true);
   };
 
   if (loading) {
@@ -97,6 +120,16 @@ export default function JobDetailsPage() {
 
   return (
     <PageTransition className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      {/* Apply Modal */}
+      <ApplyModal
+        isOpen={isApplyModalOpen}
+        onClose={() => setIsApplyModalOpen(false)}
+        job={job}
+        onApplicationSuccess={() => {
+          setHasApplied(true);
+        }}
+      />
+
       {/* Back button */}
       <Link
         to="/jobs"
@@ -155,25 +188,27 @@ export default function JobDetailsPage() {
               <span>{job.saved ? 'Saved' : 'Save'}</span>
             </button>
 
-            <Link to="/candidate/applications" className="flex-1 md:flex-initial">
+            {hasApplied ? (
+              <Button
+                variant="secondary"
+                size="md"
+                disabled
+                className="w-full sm:w-auto bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold"
+                icon={CheckCircle2}
+              >
+                Applied
+              </Button>
+            ) : (
               <Button
                 variant="primary"
                 size="md"
                 className="w-full sm:w-auto"
                 icon={Send}
-                onClick={(e) => {
-                  if (!isAuthenticated) {
-                    e.preventDefault();
-                    navigate('/login');
-                  } else if (role !== 'CANDIDATE') {
-                    e.preventDefault();
-                    alert('Only candidates can submit applications.');
-                  }
-                }}
+                onClick={handleApplyClick}
               >
                 Apply for this Role
               </Button>
-            </Link>
+            )}
           </div>
         </div>
 

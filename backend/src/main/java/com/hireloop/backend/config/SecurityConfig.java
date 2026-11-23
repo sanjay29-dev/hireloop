@@ -105,6 +105,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
                 .requestMatchers("/api/employer/**").hasRole("EMPLOYER")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/applications/**").authenticated()
                 // Allow pre-flight OPTIONS requests
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // All other requests require authentication

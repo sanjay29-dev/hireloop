@@ -206,14 +206,18 @@ export default function EmployerJobsPage() {
 
                   {/* Actions & Applicant Count */}
                   <div className="flex items-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-white/10">
-                    <div className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-center">
-                      <span className="text-base font-black text-white block">
+                    <Link
+                      to={`/employer/jobs/${job.id}/applicants`}
+                      title="View Job Applicants"
+                      className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-teal-500/10 border border-white/10 hover:border-teal-500/30 text-center transition-all cursor-pointer group/app"
+                    >
+                      <span className="text-base font-black text-white group-hover/app:text-teal-400 block transition-colors">
                         {job.applicantCount}
                       </span>
-                      <span className="text-[10px] uppercase font-semibold text-slate-400">
-                        Applicants
+                      <span className="text-[10px] uppercase font-semibold text-slate-400 group-hover/app:text-teal-300">
+                        Applicants →
                       </span>
-                    </div>
+                    </Link>
 
                     <div className="flex items-center gap-1.5">
                       <Link to={`/employer/edit-job/${job.id}`}>
