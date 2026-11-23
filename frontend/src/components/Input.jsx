@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function Input({
   label,
@@ -16,6 +17,11 @@ export default function Input({
   ...props
 }) {
   const isTextarea = type === 'textarea';
+  const isPassword = type === 'password';
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Compute effective type for password fields with visibility toggle
+  const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
   return (
     <div className={`w-full ${className}`}>
@@ -55,7 +61,7 @@ export default function Input({
           <input
             id={name}
             name={name}
-            type={type}
+            type={inputType}
             value={value}
             onChange={onChange}
             disabled={disabled}
@@ -65,10 +71,27 @@ export default function Input({
                 ? 'border-rose-500/60 focus:border-rose-500 focus:ring-rose-500/20'
                 : 'border-white/10 hover:border-white/20 focus:border-violet-500 focus:ring-violet-500/20'
             } backdrop-blur-md text-white placeholder-slate-500 text-sm py-2.5 ${
-              Icon ? 'pl-10 pr-3.5' : 'px-3.5'
-            } focus:outline-none focus:ring-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed`}
+              Icon ? 'pl-10' : 'pl-3.5'
+            } ${isPassword ? 'pr-10' : 'pr-3.5'} focus:outline-none focus:ring-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed`}
             {...props}
           />
+        )}
+
+        {/* Show/Hide password toggle button */}
+        {isPassword && !disabled && (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors focus:outline-none cursor-pointer"
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            tabIndex={-1}
+          >
+            {showPassword ? (
+              <EyeOff className="w-4 h-4 text-slate-400 hover:text-teal-400" />
+            ) : (
+              <Eye className="w-4 h-4 text-slate-400 hover:text-teal-400" />
+            )}
+          </button>
         )}
       </div>
 

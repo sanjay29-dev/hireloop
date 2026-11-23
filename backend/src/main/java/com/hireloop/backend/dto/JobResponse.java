@@ -14,6 +14,8 @@ public class JobResponse {
     private String companyName;
     private String companyLocation;
     private String companyLogo;
+    private com.hireloop.backend.enums.CompanyStatus companyStatus;
+    private com.hireloop.backend.enums.ApprovalStatus companyApprovalStatus;
     private String title;
     private String description;
     private String skills;
@@ -39,6 +41,8 @@ public class JobResponse {
             response.setCompanyName(job.getCompany().getName());
             response.setCompanyLocation(job.getCompany().getLocation());
             response.setCompanyLogo(job.getCompany().getLogoPath());
+            response.setCompanyStatus(job.getCompany().getStatus());
+            response.setCompanyApprovalStatus(job.getCompany().getApprovalStatus());
         }
         response.setTitle(job.getTitle());
         response.setDescription(job.getDescription());
@@ -93,6 +97,22 @@ public class JobResponse {
 
     public void setCompanyLogo(String companyLogo) {
         this.companyLogo = companyLogo;
+    }
+
+    public com.hireloop.backend.enums.CompanyStatus getCompanyStatus() {
+        return companyStatus;
+    }
+
+    public void setCompanyStatus(com.hireloop.backend.enums.CompanyStatus companyStatus) {
+        this.companyStatus = companyStatus;
+    }
+
+    public com.hireloop.backend.enums.ApprovalStatus getCompanyApprovalStatus() {
+        return companyApprovalStatus;
+    }
+
+    public void setCompanyApprovalStatus(com.hireloop.backend.enums.ApprovalStatus companyApprovalStatus) {
+        this.companyApprovalStatus = companyApprovalStatus;
     }
 
     public String getTitle() {

@@ -136,6 +136,14 @@ public class AuthService {
             throw new AccountSuspendedException("Your account has been suspended. Please contact the administrator for assistance.");
         }
 
+        // Rule: A suspended company cannot log in to post
+        if (user.getRole() == Role.EMPLOYER) {
+            Company company = companyRepository.findByUserId(user.getId()).orElse(null);
+            if (company != null && company.getStatus() == CompanyStatus.SUSPENDED) {
+                throw new AccountSuspendedException("Your company account has been suspended by administration. Access is restricted.");
+            }
+        }
+
         String token = jwtUtils.generateToken(user.getId(), user.getEmail(), user.getRole().name());
 
         AuthResponse response = new AuthResponse(token, user.getId(), user.getName(), user.getEmail(), user.getRole(), user.getStatus());
