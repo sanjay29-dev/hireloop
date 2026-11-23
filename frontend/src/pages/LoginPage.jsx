@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Mail, Lock, LogIn, Sparkles, Shield, User, Building } from 'lucide-react';
+import { Mail, Lock, LogIn, Sparkles } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -50,21 +50,6 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  // Quick populate for easy student testing
-  const fillDemoCredentials = (role) => {
-    if (role === 'ADMIN') {
-      setEmail('admin@hireloop.com');
-      setPassword('Admin@123');
-    } else if (role === 'EMPLOYER') {
-      setEmail('alex@techcorp.com');
-      setPassword('password123');
-    } else {
-      setEmail('jane@example.com');
-      setPassword('password123');
-    }
-    setErrorMessage('');
   };
 
   return (
@@ -131,37 +116,7 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          {/* Quick Demo Fill Pill for Fast Testing */}
-          <div className="mt-8 pt-6 border-t border-white/10">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5 text-center">
-              Quick Test Accounts:
-            </p>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => fillDemoCredentials('ADMIN')}
-                className="px-2 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-medium hover:bg-rose-500/20 transition-all flex items-center justify-center gap-1 cursor-pointer"
-              >
-                <Shield className="w-3 h-3" /> Admin
-              </button>
-              <button
-                type="button"
-                onClick={() => fillDemoCredentials('CANDIDATE')}
-                className="px-2 py-1.5 rounded-lg bg-teal-500/10 border border-teal-500/20 text-teal-300 text-xs font-medium hover:bg-teal-500/20 transition-all flex items-center justify-center gap-1 cursor-pointer"
-              >
-                <User className="w-3 h-3" /> Candidate
-              </button>
-              <button
-                type="button"
-                onClick={() => fillDemoCredentials('EMPLOYER')}
-                className="px-2 py-1.5 rounded-lg bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-medium hover:bg-violet-500/20 transition-all flex items-center justify-center gap-1 cursor-pointer"
-              >
-                <Building className="w-3 h-3" /> Employer
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-6 pt-6 border-t border-white/5 text-center text-xs text-slate-400 space-y-2">
+          <div className="mt-8 pt-6 border-t border-white/10 text-center text-xs text-slate-400 space-y-2">
             <p>
               New Candidate?{' '}
               <Link to="/register/candidate" className="text-teal-400 hover:underline font-medium">
