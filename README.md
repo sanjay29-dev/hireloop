@@ -1,4 +1,4 @@
-# 🚀 HIRELOOP — Next-Generation Job Discovery & Hiring Platform
+# 🚀 HIRELOOP — Job Discovery & Hiring Platform
 
 <div align="center">
 
@@ -10,7 +10,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Vite](https://img.shields.io/badge/Vite-5.4.10-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 
-**A full-stack, enterprise-grade job portal engineered with Spring Boot 3, React.js (Vite), and MySQL.**  
+**A full-stack job portal web application built with Spring Boot 3, React.js (Vite), and MySQL, running locally on localhost.**  
 *Featuring a sleek glassmorphic dark UI, strict role-based access control (RBAC), multi-currency compensation support (₹ INR & $ USD), PDF resume management, and dedicated workflows for Candidates, Employers, and Administrators.*
 
 </div>
@@ -23,7 +23,7 @@
 3. [Tech Stack & Architecture](#-tech-stack--architecture)
 4. [Database Schema & ERD](#-database-schema--erd)
 5. [API Endpoints Reference](#-api-endpoints-reference)
-6. [Local Development Setup](#-local-development-setup)
+6. [Running the Application Locally](#-running-the-application-locally)
 7. [Demo Credentials & Seed Data](#-demo-credentials--seed-data)
 8. [License](#-license)
 
@@ -31,14 +31,14 @@
 
 ## 🎨 Overview & Visual Design
 
-**HIRELOOP** solves modern hiring frictions through a unified, high-performance platform:
+**HIRELOOP** provides a unified hiring platform designed to run locally:
 - **Pure Dark Glassmorphic Theme**: Deep navy backgrounds (`#0b0f19`) accented with luminous violet and teal gradients, backdrop blurs (`backdrop-blur-xl`), and subtle neon borders (`border-white/10`).
 - **Interactive Password Visibility**: One-click password reveal/conceal toggle buttons with eye icons across all login and registration forms.
 - **Accidental Logout Prevention**: Confirmation modal on logout ensuring users never get logged out by an unintended click.
 - **Cascade Deletion Reliability**: Safe job deletion workflow with automatic child cleanup (applications & bookmarks) and active applicant warnings, preventing database foreign key constraint conflicts.
 - **Fluid Micro-Animations**: Smooth page transitions powered by **Framer Motion**, animated counters (**CountUp**), hover lift cards, and skeleton shimmer loaders.
-- **Localized for India & Global**: Fast Indian location filter chips (Bangalore, Hyderabad, Pune, Gurgaon, Remote - India) and currency rendering (₹ LPA for Indian openings, $k for US/Global openings).
-- **Responsive Engineering**: Fully optimized for mobile, tablet, and high-DPI desktop viewports.
+- **Localized Compensation**: Fast location filter chips (Bangalore, Hyderabad, Pune, Gurgaon, Remote) and currency rendering (₹ LPA for Indian openings, $k for US openings).
+- **Responsive Engineering**: Fully optimized for mobile, tablet, and desktop viewports.
 
 ---
 
@@ -70,7 +70,7 @@
 - **Job Discovery Engine**:
   - Full-text search across job titles, descriptions, and required skills.
   - Multi-parameter filters for location, job type (`FULL_TIME`, `PART_TIME`, `REMOTE`, `INTERNSHIP`, `CONTRACT`), and salary.
-  - Quick-select Indian IT hub chips (Bangalore, Hyderabad, Pune, Gurgaon, Remote).
+  - Quick-select IT hub filter chips (Bangalore, Hyderabad, Pune, Gurgaon, Remote).
 - **Streamlined Application Workflow**:
   - Apply with default profile resume in 1-click or optionally upload a tailored `.pdf` resume for that specific job.
   - Duplicate application prevention (database unique constraint + API validation).
@@ -107,7 +107,7 @@
 | Technology | Version | Purpose |
 | :--- | :--- | :--- |
 | **Java** | 17+ (LTS) | Core object-oriented language runtime |
-| **Spring Boot** | 3.3.5 | Modern backend micro-framework |
+| **Spring Boot** | 3.3.5 | Backend REST API framework |
 | **Spring Data JPA** | 3.3.5 | Object-Relational Mapping & query abstraction |
 | **Hibernate** | 6.5.3.Final | JPA implementation and schema management |
 | **Spring Security** | 6.3.4 | Authentication, Authorization & Security filter chain |
@@ -119,10 +119,10 @@
 | Technology | Version | Purpose |
 | :--- | :--- | :--- |
 | **React** | 18.3.1 | Component-based declarative user interface |
-| **Vite** | 5.4.10 | Next-generation ultra-fast frontend build tooling |
+| **Vite** | 5.4.10 | Fast frontend build tooling and local dev server |
 | **React Router DOM** | 6.26.2 | Client-side routing with protected route guards |
 | **Tailwind CSS** | 3.4.14 | Utility-first styling with custom dark glassmorphism |
-| **Framer Motion** | 11.5.4 | Physics-based micro-interactions and transitions |
+| **Framer Motion** | 11.5.4 | Micro-interactions and page transitions |
 | **Axios** | 1.7.7 | Promise-based HTTP client with JWT interceptors |
 | **Lucide React** | 0.441.0 | Clean, lightweight SVG icon system |
 
@@ -158,7 +158,7 @@
 └───────────────────────────────────┬────────────────────────────────────┘
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│                          MYSQL DATABASE                                │
+│                          LOCAL MYSQL DATABASE                          │
 │   users • companies • jobs • candidate_profiles • applications         │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -306,7 +306,7 @@ erDiagram
 
 ---
 
-## ⚙️ Local Development Setup
+## 💻 Running the Application Locally
 
 ### 1. Prerequisites
 - **Java Development Kit (JDK)**: 17 or higher
@@ -316,31 +316,31 @@ erDiagram
 
 ---
 
-### 2. Database Configuration
-1. Start your local MySQL service.
-2. Open your MySQL client and create the database:
+### 2. Database Setup
+1. Ensure your local MySQL service is running.
+2. In your local MySQL client, create the database:
    ```sql
    CREATE DATABASE IF NOT EXISTS hireloop CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
-3. Update `backend/src/main/resources/application.properties` with your credentials:
+3. Update `backend/src/main/resources/application.properties` with your local MySQL password if different:
    ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/hireloop?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+   spring.datasource.url=jdbc:mysql://localhost:3306/hireloop?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
    spring.datasource.username=root
-   spring.datasource.password=YOUR_MYSQL_PASSWORD
+   spring.datasource.password=root
    ```
 
 ---
 
 ### 3. Backend Setup (Spring Boot)
-1. In a terminal, navigate to the backend directory:
+1. Open a terminal and navigate to the `backend` folder:
    ```bash
    cd backend
    ```
-2. Build and run:
+2. Run the application:
    ```bash
    mvn clean spring-boot:run
    ```
-3. The API starts at **`http://localhost:8080`**.
+3. The backend starts at **`http://localhost:8080`**.
 4. Health check endpoint: **`http://localhost:8080/api/health`** returns:
    ```json
    {
@@ -349,12 +349,12 @@ erDiagram
      "status": "UP"
    }
    ```
-*(On first launch, `DataInitializer` automatically seeds the admin user, employers, Indian & global job postings, candidate profiles, and sample applications).*
+*(On first startup, `DataInitializer` automatically seeds the admin account, sample employers, jobs, candidate profiles, and sample applications into your local database).*
 
 ---
 
 ### 4. Frontend Setup (React + Vite)
-1. In a new terminal, navigate to the frontend directory:
+1. In a second terminal, navigate to the `frontend` folder:
    ```bash
    cd frontend
    ```
@@ -362,11 +362,11 @@ erDiagram
    ```bash
    npm install
    ```
-3. Launch the Vite dev server:
+3. Start the local Vite development server:
    ```bash
    npm run dev
    ```
-4. Access the web application at **`http://localhost:5173`**.
+4. Open your browser and go to **`http://localhost:5173`**.
 
 ---
 
