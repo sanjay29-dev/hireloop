@@ -19,13 +19,14 @@
 
 ## 📌 Table of Contents
 1. [Overview & Visual Design](#-overview--visual-design)
-2. [Role-Based Feature Highlights](#-role-based-feature-highlights)
-3. [Tech Stack & Architecture](#-tech-stack--architecture)
-4. [Database Schema & ERD](#-database-schema--erd)
-5. [API Endpoints Reference](#-api-endpoints-reference)
-6. [Running the Application Locally](#-running-the-application-locally)
-7. [Demo Credentials & Seed Data](#-demo-credentials--seed-data)
-8. [License](#-license)
+2. [Application Screenshots Gallery](#-application-screenshots-gallery)
+3. [Role-Based Feature Highlights](#-role-based-feature-highlights)
+4. [Tech Stack & Architecture](#-tech-stack--architecture)
+5. [Database Schema & ERD](#-database-schema--erd)
+6. [API Endpoints Reference](#-api-endpoints-reference)
+7. [Running the Application Locally](#-running-the-application-locally)
+8. [Demo Credentials & Seed Data](#-demo-credentials--seed-data)
+9. [License](#-license)
 
 ---
 
@@ -39,6 +40,50 @@
 - **Fluid Micro-Animations**: Smooth page transitions powered by **Framer Motion**, animated counters (**CountUp**), hover lift cards, and skeleton shimmer loaders.
 - **Localized Compensation**: Fast location filter chips (Bangalore, Hyderabad, Pune, Gurgaon, Remote) and currency rendering (₹ LPA for Indian openings, $k for US openings).
 - **Responsive Engineering**: Fully optimized for mobile, tablet, and desktop viewports.
+
+---
+
+## 📸 Application Screenshots Gallery
+
+### 🌐 1. Public & Discovery Experience
+| Landing Page Hero & Categories | Find Jobs Search & Filters |
+| :---: | :---: |
+| ![Landing Page](screenshots/01-landing-page.png) | ![Find Jobs](screenshots/02-find-jobs.png) |
+| *Modern glassmorphic landing page with live dynamic job opening counts and quick search* | *Real-time keyword search, location pills, and beginner-level openings* |
+
+| Detailed Job View & Easy Apply |
+| :---: |
+| ![Job Details](screenshots/03-job-details.png) |
+| *Job requirements, localized salary ranges (₹ LPA / $k), skills tags, and 1-click application* |
+
+---
+
+### 🎓 2. Candidate Portal (`jane@example.com` / `password123`)
+| Candidate Profile & Resume Hub | My Applications Real-Time Tracker |
+| :---: | :---: |
+| ![Candidate Profile](screenshots/04-candidate-profile.png) | ![My Applications](screenshots/05-my-applications.png) |
+| *Headline, skills tags, education, experience, and uploaded PDF resume management* | *Real-time application tracking with status badges (Applied, Shortlisted, Interview, Selected)* |
+
+---
+
+### 🏢 3. Employer & Recruiter Portal (`alex@techcorp.com` / `password123`)
+| Employer Analytics Dashboard | Manage Published Job Postings |
+| :---: | :---: |
+| ![Employer Dashboard](screenshots/06-employer-dashboard.png) | ![Manage Jobs](screenshots/07-manage-jobs.png) |
+| *Recruiter KPI metrics and full 5-stage applicant pipeline conversion breakdown* | *Manage active/closed listings, track applicant counts, and safe cascade deletion* |
+
+| Interactive Applicant Review Pipeline | Post New Job Opportunity |
+| :---: | :---: |
+| ![Applicant Pipeline](screenshots/08-applicant-pipeline.png) | ![Post Job](screenshots/09-post-job.png) |
+| *Candidate review with PDF resume download, full profile modal, and status stage dropdowns* | *Comprehensive job creation form with compensation ranges, skill tags, and deadlines* |
+
+---
+
+### 🛡️ 4. Administrator Control Center (`admin@hireloop.com` / `Admin@123`)
+| Platform Command Center & Employer Verification Queue |
+| :---: |
+| ![Admin Dashboard](screenshots/10-admin-dashboard.png) |
+| *Platform-wide KPI metrics, pending company approval queue, verified company roster, and user controls* |
 
 ---
 
@@ -375,15 +420,16 @@ erDiagram
 | Role | Email | Password | Details |
 | :--- | :--- | :--- | :--- |
 | **Admin** | `admin@hireloop.com` | `Admin@123` | System Administrator with full moderation control |
-| **Employer (Approved)** | `alex@techcorp.com` | `password123` | Alex Vance — TechCorp India (Bangalore, 2 jobs) |
+| **Employer (Approved)** | `alex@techcorp.com` | `password123` | Alex Vance — TechCorp India (Bangalore, 2 jobs, 5 applicants across all stages) |
 | **Employer (Approved)** | `recruiter@razorpay.com`| `password123` | Harshil Mathur — Razorpay Software (Bangalore, 2 jobs) |
 | **Employer (Approved)** | `careers@infosys.com` | `password123` | Salil Parekh — Infosys Digital (Bangalore, 2 jobs) |
-| **Employer (Approved)** | `tech-hiring@zomato.com`| `password123` | Deepinder Goyal — Zomato Tech (Gurgaon, 1 job) |
-| **Employer (Approved)** | `jobs@swiggy.in` | `password123` | Sriharsha Majety — Swiggy Labs (Hyderabad, 1 job) |
+| **Employer (Approved)** | `tech-hiring@zomato.com`| `password123` | Deepinder Goyal — Zomato Tech (Gurgaon, 2 jobs) |
+| **Employer (Approved)** | `jobs@swiggy.in` | `password123` | Sriharsha Majety — Swiggy Labs (Hyderabad, 2 jobs) |
 | **Employer (Approved)** | `jobs@stripe.com` | `password123` | Patrick Collison — Stripe Global (San Francisco, 2 jobs) |
 | **Employer (Pending)** | `vikram@cloudnexus.in` | `password123` | Vikram Oberoi — CloudNexus Technologies (Pending Admin review) |
-| **Candidate (Complete)** | `jane@example.com` | `password123` | Jane Doe — Full profile, resume, 4 active applications |
-| **Candidate (New)** | `rahul.sharma@example.com`| `password123` | Rahul Sharma — Fresh graduate profile |
+| **Candidate (Complete)** | `jane@example.com` | `password123` | Jane Doe — Full profile, resume, active applications |
+| **Candidate (Entry-Level)** | `rahul.sharma@example.com`| `password123` | Rahul Sharma — Fresh graduate profile with active applications |
+| **Candidate (DevOps)** | `priya.patel@example.com`| `password123` | Priya Patel — Cloud & DevOps engineer with interview applications |
 
 ---
 

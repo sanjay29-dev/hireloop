@@ -97,7 +97,7 @@ export default function LoginPage() {
               label="Password"
               name="password"
               type="password"
-              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               icon={Lock}

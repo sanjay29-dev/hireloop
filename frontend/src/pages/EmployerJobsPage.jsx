@@ -197,8 +197,8 @@ export default function EmployerJobsPage() {
                       )}
                       {(job.salaryMin || job.salaryMax) && (
                         <span className="font-semibold text-slate-300">
-                          {job.currency === 'USD' ? '$' : 'â‚¹'}
-                          {job.salaryMin?.toLocaleString()} - {job.currency === 'USD' ? '$' : 'â‚¹'}
+                          {job.currency === 'USD' ? '$' : '₹'}
+                          {job.salaryMin?.toLocaleString()} - {job.currency === 'USD' ? '$' : '₹'}
                           {job.salaryMax?.toLocaleString()}
                         </span>
                       )}
@@ -235,7 +235,7 @@ export default function EmployerJobsPage() {
                         {job.applicantCount}
                       </span>
                       <span className="text-[10px] uppercase font-semibold text-slate-400 group-hover/app:text-teal-300">
-                        Applicants â†’
+                        Applicants →
                       </span>
                     </Link>
 

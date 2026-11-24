@@ -119,10 +119,10 @@ export default function EmployerDashboard() {
             <div className="text-3xl sm:text-4xl font-black text-white">
               <CountUp target={stats?.totalJobs || 0} />
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5">
-              <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{stats?.activeJobs || 0} Active</span>
-              <span>â€¢</span>
-              <span className="text-slate-500 dark:text-slate-400">{stats?.closedJobs || 0} Closed</span>
+            <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+              <span className="text-emerald-400 font-semibold">{stats?.activeJobs || 0} Active</span>
+              <span>•</span>
+              <span className="text-slate-400">{stats?.closedJobs || 0} Closed</span>
             </p>
           </Card>
 

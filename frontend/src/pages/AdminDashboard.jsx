@@ -341,7 +341,7 @@ export default function AdminDashboard() {
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
             <span>{stats?.totalCandidates || 0} Candidates</span>
-            <span>â€¢</span>
+            <span>•</span>
             <span>{stats?.totalEmployers || 0} Employers</span>
           </p>
         </Card>
@@ -388,7 +388,7 @@ export default function AdminDashboard() {
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
             <span>{stats?.activeJobs || 0} Active</span>
-            <span>â€¢</span>
+            <span>•</span>
             <span>{stats?.totalApplications || 0} Total Apps</span>
           </p>
         </Card>
@@ -626,7 +626,7 @@ export default function AdminDashboard() {
                           <div className="text-slate-400 font-mono text-[11px]">{comp.employerEmail}</div>
                         </td>
                         <td className="py-3.5 px-4 text-xs text-slate-400">
-                          {comp.location || 'â€”'}
+                          {comp.location || '—'}
                         </td>
                         <td className="py-3.5 px-4 text-xs font-semibold text-white">
                           {comp.totalJobs}
@@ -874,7 +874,7 @@ export default function AdminDashboard() {
                           {u.companyName ? (
                             <span className="text-slate-200 font-medium">{u.companyName}</span>
                           ) : (
-                            'â€”'
+                            '—'
                           )}
                         </td>
                         <td className="py-3.5 px-4">

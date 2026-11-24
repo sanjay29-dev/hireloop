@@ -71,6 +71,9 @@ public class DataInitializer implements CommandLineRunner {
         // 3. Seed Realistic Indian & Foreign Jobs
         seedJobs();
 
+        // 3b. Seed Beginner-level openings across categories
+        seedBeginnerJobs();
+
         // 4. Seed Candidates (1 complete profile + 1 newly registered)
         User candidateJane = seedCandidates();
 
@@ -79,6 +82,9 @@ public class DataInitializer implements CommandLineRunner {
 
         // 5. Seed Sample Applications across statuses
         seedApplications(candidateJane);
+
+        // 5b. Seed Rich Employer Pipeline Applications for TechCorp
+        seedEmployerPipelineApplications();
 
         log.info("Hireloop Data Initialization completed successfully!");
     }
@@ -358,6 +364,136 @@ public class DataInitializer implements CommandLineRunner {
         log.info("Seeded {} Indian and International job listings!", jobs.size());
     }
 
+    private void seedBeginnerJobs() {
+        Company techcorp = companyRepository.findByUserId(
+                userRepository.findByEmail("alex@techcorp.com").map(User::getId).orElse(null)
+        ).orElse(null);
+
+        Company razorpay = companyRepository.findByUserId(
+                userRepository.findByEmail("recruiter@razorpay.com").map(User::getId).orElse(null)
+        ).orElse(null);
+
+        Company infosys = companyRepository.findByUserId(
+                userRepository.findByEmail("careers@infosys.com").map(User::getId).orElse(null)
+        ).orElse(null);
+
+        Company zomato = companyRepository.findByUserId(
+                userRepository.findByEmail("tech-hiring@zomato.com").map(User::getId).orElse(null)
+        ).orElse(null);
+
+        Company swiggy = companyRepository.findByUserId(
+                userRepository.findByEmail("jobs@swiggy.in").map(User::getId).orElse(null)
+        ).orElse(null);
+
+        // 1. Beginner Full Stack Java (TechCorp India)
+        if (techcorp != null && !jobRepository.existsByTitle("Junior Full Stack Java Developer")) {
+            jobRepository.save(Job.builder()
+                    .company(techcorp)
+                    .title("Junior Full Stack Java Developer")
+                    .description("Entry-level position for enthusiastic software engineering graduates. Work with Java 17, Spring Boot backend services, and modern responsive web interfaces using React. Comprehensive mentorship, code reviews, and structured onboarding provided.")
+                    .skills("Java 17, Spring Boot, React, MySQL, REST APIs, Git")
+                    .location("Bangalore, Karnataka, India")
+                    .jobType(JobType.FULL_TIME)
+                    .salaryMin(600000.0) // 6 LPA
+                    .salaryMax(900000.0) // 9 LPA
+                    .currency("INR")
+                    .deadline(LocalDate.now().plusMonths(3))
+                    .status(JobStatus.ACTIVE)
+                    .build());
+            log.info("Seeded beginner job: Junior Full Stack Java Developer");
+        }
+
+        // 2. Beginner Frontend & React (Swiggy Labs)
+        if (swiggy != null && !jobRepository.existsByTitle("Junior Frontend Developer (React)")) {
+            jobRepository.save(Job.builder()
+                    .company(swiggy)
+                    .title("Junior Frontend Developer (React)")
+                    .description("Exciting opportunity for freshers and early-career developers to craft responsive user interfaces with React.js, JavaScript (ES6+), HTML5, and Tailwind CSS. Learn component architecture, state management, and web performance optimization from senior frontend engineers.")
+                    .skills("React, JavaScript, Tailwind CSS, HTML5, CSS3, Vite")
+                    .location("Hyderabad, Telangana, India")
+                    .jobType(JobType.FULL_TIME)
+                    .salaryMin(550000.0) // 5.5 LPA
+                    .salaryMax(850000.0) // 8.5 LPA
+                    .currency("INR")
+                    .deadline(LocalDate.now().plusMonths(3))
+                    .status(JobStatus.ACTIVE)
+                    .build());
+            log.info("Seeded beginner job: Junior Frontend Developer (React)");
+        }
+
+        // 3. Beginner DevOps & Cloud (TechCorp India)
+        if (techcorp != null && !jobRepository.existsByTitle("Junior Cloud & DevOps Engineer")) {
+            jobRepository.save(Job.builder()
+                    .company(techcorp)
+                    .title("Junior Cloud & DevOps Engineer")
+                    .description("Beginner-level DevOps role focusing on CI/CD pipelines, Docker containerization, cloud infrastructure monitoring, and automated deployments on Linux systems. Ideal for recent graduates and junior engineers passionate about DevOps culture and reliability.")
+                    .skills("Docker, Kubernetes, Linux, CI/CD, AWS, DevOps")
+                    .location("Bangalore, Karnataka, India")
+                    .jobType(JobType.FULL_TIME)
+                    .salaryMin(600000.0) // 6 LPA
+                    .salaryMax(950000.0) // 9.5 LPA
+                    .currency("INR")
+                    .deadline(LocalDate.now().plusMonths(3))
+                    .status(JobStatus.ACTIVE)
+                    .build());
+            log.info("Seeded beginner job: Junior Cloud & DevOps Engineer");
+        }
+
+        // 4. Beginner Spring Boot & APIs (Zomato Tech)
+        if (zomato != null && !jobRepository.existsByTitle("Junior Backend Java Developer")) {
+            jobRepository.save(Job.builder()
+                    .company(zomato)
+                    .title("Junior Backend Java Developer")
+                    .description("Junior software engineer to develop high-performance RESTful microservices and backend data workflows using Spring Boot and MySQL. Participate in agile sprints, automated unit testing with JUnit, and API contract design.")
+                    .skills("Java, Spring Boot, MySQL, REST APIs, JUnit, Maven")
+                    .location("Gurgaon, Haryana, India")
+                    .jobType(JobType.FULL_TIME)
+                    .salaryMin(650000.0) // 6.5 LPA
+                    .salaryMax(1000000.0) // 10 LPA
+                    .currency("INR")
+                    .deadline(LocalDate.now().plusMonths(3))
+                    .status(JobStatus.ACTIVE)
+                    .build());
+            log.info("Seeded beginner job: Junior Backend Java Developer");
+        }
+
+        // 5. Beginner Remote Position (Razorpay Software)
+        if (razorpay != null && !jobRepository.existsByTitle("Junior Software Engineer (Remote)")) {
+            jobRepository.save(Job.builder()
+                    .company(razorpay)
+                    .title("Junior Software Engineer (Remote)")
+                    .description("Fully remote junior engineering role open across India. Build scalable backend features with Java and Spring, collaborate asynchronously across distributed engineering teams, and contribute to developer tools and partner API integrations.")
+                    .skills("Java, Spring Boot, REST APIs, Git, Problem Solving")
+                    .location("Remote - India")
+                    .jobType(JobType.REMOTE)
+                    .salaryMin(700000.0) // 7 LPA
+                    .salaryMax(1100000.0) // 11 LPA
+                    .currency("INR")
+                    .deadline(LocalDate.now().plusMonths(3))
+                    .status(JobStatus.ACTIVE)
+                    .build());
+            log.info("Seeded beginner job: Junior Software Engineer (Remote)");
+        }
+
+        // 6. Beginner Engineering Internship (Infosys Digital)
+        if (infosys != null && !jobRepository.existsByTitle("Graduate Software Intern (React & Java)")) {
+            jobRepository.save(Job.builder()
+                    .company(infosys)
+                    .title("Graduate Software Intern (React & Java)")
+                    .description("Structured 6-month paid graduate internship for aspiring software developers. Receive hands-on project training on full stack fundamentals, including Java, Spring Boot, React, and relational database schema design.")
+                    .skills("Java, React, SQL, HTML, CSS, Git")
+                    .location("Bangalore, Karnataka, India")
+                    .jobType(JobType.INTERNSHIP)
+                    .salaryMin(300000.0) // 3 LPA
+                    .salaryMax(420000.0) // 4.2 LPA
+                    .currency("INR")
+                    .deadline(LocalDate.now().plusMonths(2))
+                    .status(JobStatus.ACTIVE)
+                    .build());
+            log.info("Seeded beginner job: Graduate Software Intern (React & Java)");
+        }
+    }
+
     private User seedCandidates() {
         // Candidate 1: Jane Doe (Full profile, skills, education, experience, default resume)
         User jane = userRepository.findByEmail("jane@example.com").orElseGet(() -> {
@@ -410,6 +546,33 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
             candidateProfileRepository.save(profile);
             log.info("Created candidate profile for Rahul Sharma");
+        }
+
+        // Candidate 3: Priya Patel (DevOps & Cloud Engineer)
+        User priya = userRepository.findByEmail("priya.patel@example.com").orElseGet(() -> {
+            User user = User.builder()
+                    .name("Priya Patel")
+                    .email("priya.patel@example.com")
+                    .password(passwordEncoder.encode("password123"))
+                    .role(Role.CANDIDATE)
+                    .status(UserStatus.ACTIVE)
+                    .build();
+            return userRepository.save(user);
+        });
+
+        if (candidateProfileRepository.findByUserId(priya.getId()).isEmpty()) {
+            CandidateProfile profile = CandidateProfile.builder()
+                    .user(priya)
+                    .phone("+91 98450 67890")
+                    .location("Bangalore, Karnataka, India")
+                    .headline("Cloud & DevOps Specialist | Docker, Kubernetes, AWS")
+                    .skills("Docker, Kubernetes, AWS, Linux, CI/CD, Terraform, Python")
+                    .education("B.Tech in Computer Science - IIT Madras (2020 - 2024, CGPA: 9.1/10)")
+                    .experience("1.5 years experience managing AWS infrastructure and automating CI/CD pipelines.")
+                    .defaultResumePath("uploads/resumes/sample_resume_jane_doe.pdf")
+                    .build();
+            candidateProfileRepository.save(profile);
+            log.info("Created candidate profile for Priya Patel");
         }
 
         return jane;
@@ -476,6 +639,79 @@ public class DataInitializer implements CommandLineRunner {
 
         applicationRepository.save(app1);
         log.info("Sample applications seeded across statuses (SHORTLISTED, INTERVIEW, APPLIED, SELECTED)!");
+    }
+
+    private void seedEmployerPipelineApplications() {
+        Company techcorp = companyRepository.findByUserId(
+                userRepository.findByEmail("alex@techcorp.com").map(User::getId).orElse(null)
+        ).orElse(null);
+
+        if (techcorp == null) return;
+
+        User jane = userRepository.findByEmail("jane@example.com").orElse(null);
+        User rahul = userRepository.findByEmail("rahul.sharma@example.com").orElse(null);
+        User priya = userRepository.findByEmail("priya.patel@example.com").orElse(null);
+
+        List<Job> techcorpJobs = jobRepository.findByCompanyId(techcorp.getId());
+        log.info("TechCorp jobs found: {}", techcorpJobs.stream().map(j -> j.getId() + ":" + j.getTitle()).toList());
+        log.info("Candidates: jane={}, rahul={}, priya={}",
+                jane != null ? jane.getId() : "NULL",
+                rahul != null ? rahul.getId() : "NULL",
+                priya != null ? priya.getId() : "NULL");
+
+        Job devopsJob = techcorpJobs.stream()
+                .filter(j -> j.getTitle().toLowerCase().contains("devops & cloud specialist"))
+                .findFirst().orElse(null);
+        Job juniorJavaJob = techcorpJobs.stream()
+                .filter(j -> j.getTitle().toLowerCase().contains("junior full stack java developer"))
+                .findFirst().orElse(null);
+        Job juniorDevopsJob = techcorpJobs.stream()
+                .filter(j -> j.getTitle().toLowerCase().contains("junior cloud & devops engineer"))
+                .findFirst().orElse(null);
+
+        log.info("devopsJob={}, juniorJavaJob={}, juniorDevopsJob={}",
+                devopsJob != null ? devopsJob.getId() : "NULL",
+                juniorJavaJob != null ? juniorJavaJob.getId() : "NULL",
+                juniorDevopsJob != null ? juniorDevopsJob.getId() : "NULL");
+
+        if (devopsJob != null) {
+            createApplicationIfNotExists(devopsJob, jane, ApplicationStatus.INTERVIEW, 3);
+            createApplicationIfNotExists(devopsJob, rahul, ApplicationStatus.SHORTLISTED, 2);
+            createApplicationIfNotExists(devopsJob, priya, ApplicationStatus.SELECTED, 6);
+        }
+
+        if (juniorJavaJob != null) {
+            createApplicationIfNotExists(juniorJavaJob, rahul, ApplicationStatus.APPLIED, 1);
+            createApplicationIfNotExists(juniorJavaJob, jane, ApplicationStatus.SHORTLISTED, 4);
+        }
+
+        if (juniorDevopsJob != null) {
+            createApplicationIfNotExists(juniorDevopsJob, priya, ApplicationStatus.INTERVIEW, 2);
+            createApplicationIfNotExists(juniorDevopsJob, jane, ApplicationStatus.SELECTED, 6);
+            createApplicationIfNotExists(juniorDevopsJob, rahul, ApplicationStatus.REJECTED, 5);
+        }
+
+        log.info("Employer pipeline applications seeded for TechCorp India!");
+    }
+
+    private void createApplicationIfNotExists(Job job, User candidate, ApplicationStatus status, int daysAgo) {
+        if (job == null || candidate == null) {
+            log.warn("Cannot create application: job={} candidate={}", job, candidate);
+            return;
+        }
+        if (!applicationRepository.existsByJobIdAndCandidateId(job.getId(), candidate.getId())) {
+            Application app = Application.builder()
+                    .job(job)
+                    .candidate(candidate)
+                    .status(status)
+                    .resumePath("uploads/resumes/sample_resume_jane_doe.pdf")
+                    .appliedAt(LocalDateTime.now().minusDays(daysAgo))
+                    .build();
+            applicationRepository.save(app);
+            log.info("Seeded application: candidate={}, job={}, status={}", candidate.getName(), job.getTitle(), status);
+        } else {
+            log.info("Application already exists for candidate={} and job={}", candidate.getName(), job.getTitle());
+        }
     }
 
     private void ensureSampleResumeFile() {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
+import api from '../services/api';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import PageTransition from '../components/PageTransition';
@@ -25,6 +26,40 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
   const [location, setLocation] = useState('');
+  const [counts, setCounts] = useState({});
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchCounts = async () => {
+      try {
+        const [javaRes, reactRes, devopsRes, springRes, remoteRes, internRes] = await Promise.allSettled([
+          api.get('/jobs?keyword=Java&size=1'),
+          api.get('/jobs?keyword=React&size=1'),
+          api.get('/jobs?keyword=DevOps&size=1'),
+          api.get('/jobs?keyword=Spring&size=1'),
+          api.get('/jobs?jobType=REMOTE&size=1'),
+          api.get('/jobs?jobType=INTERNSHIP&size=1'),
+        ]);
+
+        if (!isMounted) return;
+
+        setCounts({
+          Java: javaRes.status === 'fulfilled' ? javaRes.value.data?.data?.totalElements : undefined,
+          React: reactRes.status === 'fulfilled' ? reactRes.value.data?.data?.totalElements : undefined,
+          DevOps: devopsRes.status === 'fulfilled' ? devopsRes.value.data?.data?.totalElements : undefined,
+          Spring: springRes.status === 'fulfilled' ? springRes.value.data?.data?.totalElements : undefined,
+          REMOTE: remoteRes.status === 'fulfilled' ? remoteRes.value.data?.data?.totalElements : undefined,
+          INTERNSHIP: internRes.status === 'fulfilled' ? internRes.value.data?.data?.totalElements : undefined,
+        });
+      } catch (err) {
+        console.error('Failed to fetch job counts:', err);
+      }
+    };
+    fetchCounts();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -35,12 +70,12 @@ export default function LandingPage() {
   };
 
   const categories = [
-    { title: 'Full Stack Java', keyword: 'Java', count: '6 Openings', icon: Code2, color: 'text-violet-400', bg: 'bg-violet-500/20' },
-    { title: 'Frontend & React', keyword: 'React', count: '4 Openings', icon: Palette, color: 'text-teal-400', bg: 'bg-teal-500/20' },
-    { title: 'DevOps & Cloud', keyword: 'DevOps', count: '2 Openings', icon: Cloud, color: 'text-cyan-400', bg: 'bg-cyan-500/20' },
-    { title: 'Spring Boot & APIs', keyword: 'Spring', count: '4 Openings', icon: Cpu, color: 'text-emerald-400', bg: 'bg-emerald-500/20' },
-    { title: 'Remote Positions', jobType: 'REMOTE', count: '2 Openings', icon: Megaphone, color: 'text-amber-400', bg: 'bg-amber-500/20' },
-    { title: 'Engineering Internships', jobType: 'INTERNSHIP', count: '1 Opening', icon: LineChart, color: 'text-rose-400', bg: 'bg-rose-500/20' },
+    { title: 'Full Stack Java', keyword: 'Java', defaultCount: 5, icon: Code2, color: 'text-violet-400', bg: 'bg-violet-500/20' },
+    { title: 'Frontend & React', keyword: 'React', defaultCount: 4, icon: Palette, color: 'text-teal-400', bg: 'bg-teal-500/20' },
+    { title: 'DevOps & Cloud', keyword: 'DevOps', defaultCount: 2, icon: Cloud, color: 'text-cyan-400', bg: 'bg-cyan-500/20' },
+    { title: 'Spring Boot & APIs', keyword: 'Spring', defaultCount: 4, icon: Cpu, color: 'text-emerald-400', bg: 'bg-emerald-500/20' },
+    { title: 'Remote Positions', jobType: 'REMOTE', defaultCount: 1, icon: Megaphone, color: 'text-amber-400', bg: 'bg-amber-500/20' },
+    { title: 'Engineering Internships', jobType: 'INTERNSHIP', defaultCount: 1, icon: LineChart, color: 'text-rose-400', bg: 'bg-rose-500/20' },
   ];
 
   const featuredJobs = [
@@ -50,7 +85,7 @@ export default function LandingPage() {
       company: 'Razorpay Software',
       location: 'Bangalore, Karnataka, India',
       type: 'FULL_TIME',
-      salary: 'â‚¹18 - â‚¹28 LPA',
+      salary: '₹18 - ₹28 LPA',
       tags: ['Java 17', 'Spring Boot', 'React', 'MySQL'],
     },
     {
@@ -59,7 +94,7 @@ export default function LandingPage() {
       company: 'Infosys Digital',
       location: 'Bangalore, Karnataka, India',
       type: 'FULL_TIME',
-      salary: 'â‚¹12 - â‚¹18 LPA',
+      salary: '₹12 - ₹18 LPA',
       tags: ['Spring Boot', 'JPA', 'MySQL', 'Docker'],
     },
     {
@@ -68,7 +103,7 @@ export default function LandingPage() {
       company: 'Swiggy Labs',
       location: 'Hyderabad, Telangana, India',
       type: 'FULL_TIME',
-      salary: 'â‚¹10 - â‚¹16 LPA',
+      salary: '₹10 - ₹16 LPA',
       tags: ['React', 'Tailwind CSS', 'Vite', 'Framer Motion'],
     },
     {
@@ -206,6 +241,9 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {categories.map((cat, idx) => {
             const Icon = cat.icon;
+            const liveCount = cat.jobType ? counts[cat.jobType] : counts[cat.keyword];
+            const countNum = liveCount !== undefined && liveCount !== null ? liveCount : cat.defaultCount;
+            const countLabel = `${countNum} Opening${countNum === 1 ? '' : 's'}`;
             return (
               <Card
                 key={idx}
@@ -226,7 +264,7 @@ export default function LandingPage() {
                   <h3 className="text-base font-bold text-white group-hover:text-teal-300 transition-colors">
                     {cat.title}
                   </h3>
-                  <p className="text-xs text-slate-300 font-medium mt-0.5">{cat.count}</p>
+                  <p className="text-xs text-slate-300 font-medium mt-0.5">{countLabel}</p>
                 </div>
               </Card>
             );
@@ -269,7 +307,7 @@ export default function LandingPage() {
                 <h3 className="text-lg font-bold text-white mb-1">{job.title}</h3>
                 <p className="text-xs text-slate-400 flex items-center gap-1 mb-4 font-medium">
                   <Building2 className="w-3.5 h-3.5 text-slate-400" />
-                  {job.company} â€¢ {job.location}
+                  {job.company} • {job.location}
                 </p>
 
                 <div className="flex flex-wrap gap-1.5 mb-6">

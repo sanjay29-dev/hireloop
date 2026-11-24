@@ -25,7 +25,8 @@ import SkeletonLoader from '../components/SkeletonLoader';
 import PageTransition from '../components/PageTransition';
 
 export default function EmployerApplicantsPage() {
-  const { id: jobId } = useParams();
+  const params = useParams();
+  const jobId = params.jobId || params.id;
 
   const [applicants, setApplicants] = useState([]);
   const [job, setJob] = useState(null);
@@ -37,6 +38,7 @@ export default function EmployerApplicantsPage() {
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
 
   const fetchApplicants = async () => {
+    if (!jobId) return;
     try {
       const [appRes, jobRes] = await Promise.all([
         api.get(`/employer/jobs/${jobId}/applicants`),
