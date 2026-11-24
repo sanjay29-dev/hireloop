@@ -43,7 +43,7 @@ export default function CandidateDashboard() {
             <div className="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-500/10 border border-violet-200 dark:border-violet-500/20 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-4 shadow-sm">
               <User className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">My Profile</h3>
+            <h3 className="text-lg font-bold text-white mb-2">My Profile</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
               Manage your experience, skills, education, and upload your default PDF resume.
             </p>
@@ -60,7 +60,7 @@ export default function CandidateDashboard() {
             <div className="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-500/10 border border-teal-200 dark:border-teal-500/20 flex items-center justify-center text-teal-600 dark:text-teal-400 mb-4 shadow-sm">
               <FileText className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">My Applications</h3>
+            <h3 className="text-lg font-bold text-white mb-2">My Applications</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
               View live progress badges for all your job applications (Applied, Shortlisted, Interview, Selected).
             </p>
@@ -77,7 +77,7 @@ export default function CandidateDashboard() {
             <div className="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-cyan-500/10 border border-cyan-200 dark:border-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4 shadow-sm">
               <Bookmark className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Saved Jobs</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Saved Jobs</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
               Keep track of roles you want to apply for later with one-click bookmarking.
             </p>

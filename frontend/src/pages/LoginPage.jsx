@@ -66,7 +66,7 @@ export default function LoginPage() {
               </div>
             </div>
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Welcome Back
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
@@ -97,7 +97,7 @@ export default function LoginPage() {
               label="Password"
               name="password"
               type="password"
-              placeholder="••••••••"
+              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               icon={Lock}

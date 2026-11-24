@@ -116,12 +116,12 @@ export default function EmployerDashboard() {
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Jobs</span>
               <Briefcase className="w-4 h-4 text-violet-600 dark:text-violet-400" />
             </div>
-            <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
+            <div className="text-3xl sm:text-4xl font-black text-white">
               <CountUp target={stats?.totalJobs || 0} />
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5">
               <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{stats?.activeJobs || 0} Active</span>
-              <span>•</span>
+              <span>â€¢</span>
               <span className="text-slate-500 dark:text-slate-400">{stats?.closedJobs || 0} Closed</span>
             </p>
           </Card>
@@ -131,7 +131,7 @@ export default function EmployerDashboard() {
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Applicants</span>
               <Users className="w-4 h-4 text-teal-600 dark:text-teal-400" />
             </div>
-            <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
+            <div className="text-3xl sm:text-4xl font-black text-white">
               <CountUp target={stats?.totalApplicants || 0} />
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Across all your listings</p>
@@ -163,7 +163,7 @@ export default function EmployerDashboard() {
 
       {/* Applicant Status Breakdown Section */}
       <div className="mb-10">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
           <FileCheck className="w-5 h-5 text-teal-600 dark:text-teal-400" />
           Applicant Pipeline Status Breakdown
         </h2>
@@ -195,7 +195,7 @@ export default function EmployerDashboard() {
             <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-500/10 border border-violet-200 dark:border-violet-500/20 flex items-center justify-center text-violet-600 dark:text-violet-400 mb-3 shadow-sm">
               <Briefcase className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">My Job Listings</h3>
+            <h3 className="text-base font-bold text-white mb-1">My Job Listings</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
               View your open and closed jobs, monitor applicant counts, edit details, or close listings.
             </p>
@@ -212,7 +212,7 @@ export default function EmployerDashboard() {
             <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-500/10 border border-teal-200 dark:border-teal-500/20 flex items-center justify-center text-teal-600 dark:text-teal-400 mb-3 shadow-sm">
               <Building2 className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">Company Profile</h3>
+            <h3 className="text-base font-bold text-white mb-1">Company Profile</h3>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
               Update company branding, website, headquarters location, and about section.
             </p>

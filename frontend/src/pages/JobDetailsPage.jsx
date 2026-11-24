@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
-  ArrowLeft,
-  Building2,
   MapPin,
-  Calendar,
-  Briefcase,
-  DollarSign,
+  Building2,
   Bookmark,
+  Calendar,
+  Send,
+  ArrowLeft,
   CheckCircle2,
   Clock,
-  Send,
+  Briefcase,
+  AlertCircle,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
@@ -23,43 +23,52 @@ import { formatSalary } from '../utils/formatSalary';
 
 export default function JobDetailsPage() {
   const { id } = useParams();
-  const { isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
+  const { isAuthenticated, role } = useAuth();
 
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
-  const [hasApplied, setHasApplied] = useState(false);
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+  const [hasApplied, setHasApplied] = useState(false);
 
   useEffect(() => {
-    // 1. Fetch Job Details
-    api.get(`/jobs/${id}`)
-      .then((res) => {
-        setJob(res.data.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.response?.data?.message || 'Job not found');
-        setLoading(false);
-      });
-
-    // 2. If Candidate is logged in, check if already applied
+    fetchJobDetails();
     if (isAuthenticated && role === 'CANDIDATE') {
-      api.get(`/candidate/applications/check/${id}`)
-        .then((res) => {
-          setHasApplied(res.data.data?.hasApplied || false);
-        })
-        .catch(() => {});
+      checkApplicationStatus();
     }
   }, [id, isAuthenticated, role]);
+
+  const fetchJobDetails = async () => {
+    setLoading(true);
+    try {
+      const res = await api.get(`/jobs/${id}`);
+      setJob(res.data.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to load job details');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const checkApplicationStatus = async () => {
+    try {
+      const res = await api.get('/candidate/applications');
+      const apps = res.data.data || [];
+      const applied = apps.some((a) => a.jobId === Number(id));
+      setHasApplied(applied);
+    } catch {
+      // Ignore if cannot fetch applications
+    }
+  };
 
   const toggleSave = async () => {
     if (!isAuthenticated) {
       navigate('/login');
       return;
     }
+
     if (role !== 'CANDIDATE') {
       alert('Only candidates can save jobs.');
       return;
@@ -75,7 +84,7 @@ export default function JobDetailsPage() {
         setJob((prev) => ({ ...prev, saved: true }));
       }
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to update saved job');
+      alert(err.response?.data?.message || 'Could not update bookmark');
     } finally {
       setSaving(false);
     }
@@ -86,16 +95,18 @@ export default function JobDetailsPage() {
       navigate('/login');
       return;
     }
+
     if (role !== 'CANDIDATE') {
-      alert('Only candidates can submit applications.');
+      alert('Only candidates can apply for jobs.');
       return;
     }
+
     setIsApplyModalOpen(true);
   };
 
   if (loading) {
     return (
-      <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <SkeletonLoader type="card" count={2} />
       </div>
     );
@@ -103,17 +114,18 @@ export default function JobDetailsPage() {
 
   if (error || !job) {
     return (
-      <PageTransition className="max-w-xl mx-auto px-4 py-16 text-center">
-        <Card className="p-10 border-rose-500/20">
-          <h2 className="text-xl font-bold text-white mb-2">Job Listing Unavailable</h2>
-          <p className="text-sm text-slate-400 mb-6">{error || 'This job does not exist or has been closed.'}</p>
-          <Link to="/jobs">
-            <Button variant="primary" size="md" icon={ArrowLeft}>
-              Back to Open Jobs
-            </Button>
-          </Link>
-        </Card>
-      </PageTransition>
+      <div className="max-w-2xl mx-auto px-4 py-20 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4">
+          <AlertCircle className="w-8 h-8" />
+        </div>
+        <h2 className="text-xl font-bold text-white mb-2">Job Not Found</h2>
+        <p className="text-xs text-slate-400 mb-6">{error || 'This job listing does not exist or has been removed.'}</p>
+        <Link to="/jobs">
+          <Button variant="primary" size="sm" icon={ArrowLeft}>
+            Back to Job Board
+          </Button>
+        </Link>
+      </div>
     );
   }
 
@@ -130,42 +142,45 @@ export default function JobDetailsPage() {
       />
 
       {/* Back button */}
-      <Link
-        to="/jobs"
-        className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors mb-6"
-      >
-        <ArrowLeft className="w-4 h-4" /> Back to All Jobs
-      </Link>
+      <div className="mb-6">
+        <button
+          onClick={() => navigate(-1)}
+          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition-colors cursor-pointer"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to listings
+        </button>
+      </div>
 
-      {/* Main Job Header Card */}
-      <Card className="p-8 mb-8 border-violet-200 dark:border-violet-500/20">
+      {/* Hero Header Card */}
+      <Card className="p-8 mb-8 bg-navy-850/80 border border-white/10">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-          <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-100 to-teal-50 dark:from-violet-600/30 dark:to-teal-500/20 border border-violet-200 dark:border-white/10 flex items-center justify-center font-black text-violet-700 dark:text-white text-2xl flex-shrink-0 shadow-sm">
+          <div className="flex items-start gap-4 flex-1">
+            <div className="w-16 h-16 rounded-2xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center font-bold text-white text-2xl shadow-md flex-shrink-0">
               {job.companyName ? job.companyName.charAt(0) : 'C'}
             </div>
+
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 dark:bg-teal-500/15 dark:text-teal-300 dark:border-teal-500/25">
+                <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-teal-500/15 text-teal-300 border border-teal-500/30">
                   {job.jobType.replace('_', ' ')}
                 </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+                <span className="text-xs text-slate-400 flex items-center gap-1 font-medium">
+                  <Clock className="w-3.5 h-3.5 text-slate-400" />
                   Posted {new Date(job.createdAt).toLocaleDateString()}
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
                 {job.title}
               </h1>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 dark:text-slate-300">
-                <span className="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5">
-                  <Building2 className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+              <div className="flex flex-wrap items-center gap-4 text-sm text-slate-300">
+                <span className="font-semibold text-white flex items-center gap-1.5">
+                  <Building2 className="w-4 h-4 text-violet-400" />
                   {job.companyName}
                 </span>
-                <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400">
-                  <MapPin className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                <span className="flex items-center gap-1 text-slate-400 font-medium">
+                  <MapPin className="w-4 h-4 text-teal-400" />
                   {job.location}
                 </span>
               </div>
@@ -173,17 +188,17 @@ export default function JobDetailsPage() {
           </div>
 
           {/* Action Buttons: Save & Apply */}
-          <div className="flex items-center gap-3 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-slate-200 dark:border-white/10">
+          <div className="flex items-center gap-3 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-white/10">
             <button
               onClick={toggleSave}
               disabled={saving}
               className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center gap-2 text-xs font-semibold ${
                 job.saved
-                  ? 'bg-rose-50 text-rose-600 border-rose-200 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/40 shadow-sm'
-                  : 'bg-slate-100 text-slate-600 hover:text-slate-900 border-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:text-white dark:border-white/10 dark:hover:border-white/20'
+                  ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 shadow-sm'
+                  : 'bg-white/5 text-slate-300 hover:text-white border-white/10 hover:border-white/20'
               }`}
             >
-              <Bookmark className={`w-4 h-4 ${job.saved ? 'fill-rose-500 text-rose-500 dark:fill-rose-400 dark:text-rose-400' : ''}`} />
+              <Bookmark className={`w-4 h-4 ${job.saved ? 'fill-rose-400 text-rose-400' : ''}`} />
               <span>{job.saved ? 'Saved' : 'Save'}</span>
             </button>
 
@@ -192,7 +207,7 @@ export default function JobDetailsPage() {
                 variant="secondary"
                 size="md"
                 disabled
-                className="w-full sm:w-auto bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/30 font-semibold"
+                className="w-full sm:w-auto bg-emerald-500/15 text-emerald-300 border-emerald-500/30 font-semibold"
                 icon={CheckCircle2}
               >
                 Applied
@@ -212,39 +227,39 @@ export default function JobDetailsPage() {
         </div>
 
         {/* Quick Highlights Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-200 dark:border-white/10">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-white/10">
           <div>
-            <span className="text-[10px] uppercase font-bold text-slate-500 block mb-1">
+            <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">
               Salary Compensation
             </span>
-            <span className="text-sm sm:text-base font-extrabold text-teal-600 dark:text-teal-400">
+            <span className="text-sm sm:text-base font-extrabold text-teal-300">
               {formatSalary(job.salaryMin, job.salaryMax, job.currency)}
             </span>
           </div>
 
           <div>
-            <span className="text-[10px] uppercase font-bold text-slate-500 block mb-1">
+            <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">
               Work Location
             </span>
-            <span className="text-sm font-semibold text-slate-800 dark:text-white">
+            <span className="text-sm font-semibold text-white">
               {job.location || 'Flexible'}
             </span>
           </div>
 
           <div>
-            <span className="text-[10px] uppercase font-bold text-slate-500 block mb-1">
+            <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">
               Position Type
             </span>
-            <span className="text-sm font-semibold text-slate-800 dark:text-white">
+            <span className="text-sm font-semibold text-white">
               {job.jobType.replace('_', ' ')}
             </span>
           </div>
 
           <div>
-            <span className="text-[10px] uppercase font-bold text-slate-500 block mb-1">
+            <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">
               Application Deadline
             </span>
-            <span className="text-sm font-semibold text-slate-800 dark:text-white">
+            <span className="text-sm font-semibold text-white">
               {job.deadline ? new Date(job.deadline).toLocaleDateString() : 'Rolling Basis'}
             </span>
           </div>
@@ -256,15 +271,15 @@ export default function JobDetailsPage() {
         <div className="lg:col-span-2 space-y-8">
           {/* Required Skills */}
           {job.skills && (
-            <Card className="p-6">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-4">
+            <Card className="p-6 bg-navy-850/80 border border-white/10">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 mb-4">
                 Required Technical Skills
               </h3>
               <div className="flex flex-wrap gap-2">
                 {job.skills.split(',').map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 rounded-xl bg-violet-50 border border-violet-200 text-violet-700 dark:bg-violet-500/10 dark:border-violet-500/20 dark:text-violet-300 text-xs font-medium"
+                    className="px-3 py-1.5 rounded-xl bg-violet-600/20 border border-violet-500/30 text-violet-300 text-xs font-semibold"
                   >
                     {skill.trim()}
                   </span>
@@ -274,9 +289,9 @@ export default function JobDetailsPage() {
           )}
 
           {/* Detailed Job Description */}
-          <Card className="p-8">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">About the Position</h3>
-            <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line space-y-4">
+          <Card className="p-8 bg-navy-850/80 border border-white/10">
+            <h3 className="text-lg font-bold text-white mb-4">About the Position</h3>
+            <div className="text-sm text-slate-300 leading-relaxed whitespace-pre-line space-y-4 font-normal">
               {job.description}
             </div>
           </Card>
@@ -284,28 +299,28 @@ export default function JobDetailsPage() {
 
         {/* Right Column: Company Info Card */}
         <div className="space-y-6">
-          <Card className="p-6 border-teal-200 dark:border-teal-500/20">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200 mb-4">
+          <Card className="p-6 bg-navy-850/80 border border-teal-500/30">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 mb-4">
               About the Hiring Company
             </h3>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 dark:bg-white/5 dark:border-white/10 flex items-center justify-center font-bold text-slate-800 dark:text-white text-lg shadow-sm">
+              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-bold text-white text-lg shadow-sm">
                 {job.companyName ? job.companyName.charAt(0) : 'C'}
               </div>
               <div>
-                <h4 className="text-base font-bold text-slate-900 dark:text-white">{job.companyName}</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400">{job.companyLocation || job.location}</p>
+                <h4 className="text-base font-bold text-white">{job.companyName}</h4>
+                <p className="text-xs text-slate-400 font-medium">{job.companyLocation || job.location}</p>
               </div>
             </div>
 
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+            <p className="text-xs text-slate-300 leading-relaxed mb-6">
               Verified employer active on Hireloop platform.
             </p>
 
             <Link to="/jobs">
               <Button variant="secondary" size="sm" className="w-full">
-                View More Jobs from this Company
+                View More Jobs
               </Button>
             </Link>
           </Card>

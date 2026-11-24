@@ -83,20 +83,20 @@ export default function SavedJobsPage() {
               key={job.id}
               hover={true}
               onClick={() => navigate(`/jobs/${job.id}`)}
-              className="cursor-pointer flex flex-col justify-between group"
+              className="cursor-pointer flex flex-col justify-between group p-6 bg-navy-850/80 border border-white/10"
             >
               <div>
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-100 to-teal-50 dark:from-violet-600/20 dark:to-teal-500/20 border border-violet-200/80 dark:border-white/10 flex items-center justify-center font-bold text-violet-700 dark:text-white text-base shadow-sm">
+                    <div className="w-11 h-11 rounded-xl bg-violet-600/20 border border-white/10 flex items-center justify-center font-bold text-white text-base shadow-sm">
                       {job.companyName ? job.companyName.charAt(0) : 'C'}
                     </div>
                     <div>
-                      <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                      <h4 className="text-xs font-semibold text-slate-300">
                         {job.companyName}
                       </h4>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-slate-400 dark:text-slate-500" />
+                      <p className="text-[11px] text-slate-400 flex items-center gap-1 font-medium">
+                        <MapPin className="w-3 h-3 text-slate-400" />
                         {job.location}
                       </p>
                     </div>
@@ -106,17 +106,17 @@ export default function SavedJobsPage() {
                     onClick={(e) => handleRemove(e, job.id)}
                     disabled={removingId === job.id}
                     title="Remove from Saved"
-                    className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-500/10 border border-transparent hover:border-rose-200 dark:hover:border-rose-500/20 transition-all cursor-pointer"
+                    className="p-2 rounded-xl text-rose-400 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors mb-2 line-clamp-1">
+                <h3 className="text-lg font-bold text-white group-hover:text-teal-300 transition-colors mb-2 line-clamp-1">
                   {job.title}
                 </h3>
 
-                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 leading-relaxed">
+                <p className="text-xs text-slate-300 line-clamp-2 mb-4 leading-relaxed font-normal">
                   {job.description}
                 </p>
 
@@ -125,7 +125,7 @@ export default function SavedJobsPage() {
                     {job.skills.split(',').slice(0, 3).map((s) => (
                       <span
                         key={s}
-                        className="text-[11px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 dark:bg-white/5 dark:border-white/5 dark:text-slate-300 font-medium"
+                        className="text-[11px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-200 font-medium"
                       >
                         {s.trim()}
                       </span>
@@ -134,12 +134,12 @@ export default function SavedJobsPage() {
                 )}
               </div>
 
-              <div className="pt-4 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] uppercase font-semibold text-slate-500 block">
+                  <span className="text-[10px] uppercase font-semibold text-slate-400 block">
                     Salary
                   </span>
-                  <span className="text-sm font-bold text-teal-600 dark:text-teal-300">
+                  <span className="text-sm font-black text-teal-300">
                     {formatSalary(job.salaryMin, job.salaryMax, job.currency)}
                   </span>
                 </div>

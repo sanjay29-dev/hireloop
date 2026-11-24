@@ -159,7 +159,7 @@ export default function MyApplicationsPage() {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
               filter === tab
                 ? 'bg-violet-100 text-violet-800 border border-violet-300 dark:bg-violet-600/25 dark:text-violet-300 dark:border-violet-500/40 shadow-sm dark:shadow-glow-violet'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent'
+                : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
             }`}
           >
             {tab} (
@@ -181,7 +181,7 @@ export default function MyApplicationsPage() {
           <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-4">
             <FileText className="w-8 h-8 text-violet-600 dark:text-violet-400" />
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+          <h3 className="text-lg font-bold text-white mb-2">
             No {filter !== 'ALL' ? filter.toLowerCase() : ''} applications
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6">
@@ -203,7 +203,7 @@ export default function MyApplicationsPage() {
                   <div className="flex flex-wrap items-center gap-3">
                     <Link
                       to={`/jobs/${app.jobId}`}
-                      className="text-lg font-bold text-slate-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
+                      className="text-lg font-bold text-white hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
                     >
                       {app.jobTitle}
                     </Link>
@@ -211,7 +211,7 @@ export default function MyApplicationsPage() {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
-                    <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300 font-medium">
+                    <span className="flex items-center gap-1 text-slate-300 font-medium">
                       <Building2 className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" />
                       {app.companyName}
                     </span>

@@ -77,7 +77,7 @@ export default function EmployerRegisterPage() {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-semibold mb-3 border border-violet-500/20">
             <Building className="w-3.5 h-3.5" /> Employer Portal
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Register Your Company
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">

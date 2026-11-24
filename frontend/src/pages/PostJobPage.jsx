@@ -113,7 +113,7 @@ export default function PostJobPage() {
           <div className="w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-500/20 border border-amber-200 dark:border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 mx-auto mb-6 shadow-sm">
             <Clock className="w-8 h-8 animate-pulse" />
           </div>
-          <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-3">
+          <h2 className="text-2xl font-black text-white mb-3">
             Approval Required to Post Jobs
           </h2>
           <p className="text-sm text-slate-600 dark:text-slate-300 max-w-lg mx-auto mb-6 leading-relaxed">
@@ -153,7 +153,7 @@ export default function PostJobPage() {
         >
           <ArrowLeft className="w-4 h-4" /> Back to My Jobs
         </Link>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
           {isEditMode ? 'Edit Job Posting' : 'Create New Job Listing'}
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">

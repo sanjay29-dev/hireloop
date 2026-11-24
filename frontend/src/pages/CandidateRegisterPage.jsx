@@ -76,7 +76,7 @@ export default function CandidateRegisterPage() {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-semibold mb-3 border border-teal-500/20">
             <User className="w-3.5 h-3.5" /> Candidate Portal
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Create Candidate Account
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">

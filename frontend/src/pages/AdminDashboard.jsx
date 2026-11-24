@@ -336,12 +336,12 @@ export default function AdminDashboard() {
               <Users className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-black text-slate-900 dark:text-white">
+          <div className="text-3xl font-black text-white">
             {loading ? <SkeletonLoader className="h-8 w-16" /> : stats?.totalUsers || 0}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
             <span>{stats?.totalCandidates || 0} Candidates</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>{stats?.totalEmployers || 0} Employers</span>
           </p>
         </Card>
@@ -368,7 +368,7 @@ export default function AdminDashboard() {
               <Building2 className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-black text-slate-900 dark:text-white">
+          <div className="text-3xl font-black text-white">
             {loading ? <SkeletonLoader className="h-8 w-16" /> : stats?.totalCompanies || 0}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -383,12 +383,12 @@ export default function AdminDashboard() {
               <Briefcase className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-black text-slate-900 dark:text-white">
+          <div className="text-3xl font-black text-white">
             {loading ? <SkeletonLoader className="h-8 w-16" /> : stats?.totalJobs || 0}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
             <span>{stats?.activeJobs || 0} Active</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>{stats?.totalApplications || 0} Total Apps</span>
           </p>
         </Card>
@@ -404,7 +404,7 @@ export default function AdminDashboard() {
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'pending'
               ? 'bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30 shadow-sm'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
+              : 'text-slate-400 hover:text-white hover:bg-white/5'
           }`}
         >
           <FileCheck className="w-4 h-4" />
@@ -424,7 +424,7 @@ export default function AdminDashboard() {
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'companies'
               ? 'bg-violet-100 text-violet-800 border border-violet-300 dark:bg-violet-600/20 dark:text-violet-300 dark:border-violet-500/30 shadow-sm'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
+              : 'text-slate-400 hover:text-white hover:bg-white/5'
           }`}
         >
           <Building2 className="w-4 h-4" />
@@ -439,7 +439,7 @@ export default function AdminDashboard() {
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'jobs'
               ? 'bg-teal-100 text-teal-800 border border-teal-300 dark:bg-teal-500/20 dark:text-teal-300 dark:border-teal-500/30 shadow-sm'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
+              : 'text-slate-400 hover:text-white hover:bg-white/5'
           }`}
         >
           <Briefcase className="w-4 h-4" />
@@ -454,7 +454,7 @@ export default function AdminDashboard() {
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'users'
               ? 'bg-rose-100 text-rose-800 border border-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/30 shadow-sm'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
+              : 'text-slate-400 hover:text-white hover:bg-white/5'
           }`}
         >
           <Users className="w-4 h-4" />
@@ -626,7 +626,7 @@ export default function AdminDashboard() {
                           <div className="text-slate-400 font-mono text-[11px]">{comp.employerEmail}</div>
                         </td>
                         <td className="py-3.5 px-4 text-xs text-slate-400">
-                          {comp.location || '—'}
+                          {comp.location || 'â€”'}
                         </td>
                         <td className="py-3.5 px-4 text-xs font-semibold text-white">
                           {comp.totalJobs}
@@ -874,7 +874,7 @@ export default function AdminDashboard() {
                           {u.companyName ? (
                             <span className="text-slate-200 font-medium">{u.companyName}</span>
                           ) : (
-                            '—'
+                            'â€”'
                           )}
                         </td>
                         <td className="py-3.5 px-4">

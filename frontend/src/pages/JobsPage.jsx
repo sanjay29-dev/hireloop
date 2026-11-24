@@ -25,7 +25,7 @@ export default function JobsPage() {
   const { isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
 
-  const [keyword, setKeyword] = useState(searchParams.get('keyword') || '');
+  const [keyword, setKeyword] = useState(searchParams.get('keyword') || searchParams.get('category') || '');
   const [location, setLocation] = useState(searchParams.get('location') || '');
   const [jobType, setJobType] = useState(searchParams.get('jobType') || '');
   const [sortBy, setSortBy] = useState('createdAt');
@@ -38,16 +38,27 @@ export default function JobsPage() {
   const [loading, setLoading] = useState(true);
   const [savingJobId, setSavingJobId] = useState(null);
 
-  // Quick Indian & International Location Chips
+  // Quick Location Chips
   const popularLocations = [
     'All',
     'Bangalore',
     'Hyderabad',
     'Pune',
     'Gurgaon',
-    'Remote - India',
+    'Remote',
     'USA',
   ];
+
+  // Sync state if URL query params change (e.g. navigation from landing page categories)
+  useEffect(() => {
+    const kw = searchParams.get('keyword') || searchParams.get('category') || '';
+    const loc = searchParams.get('location') || '';
+    const jt = searchParams.get('jobType') || '';
+    setKeyword(kw);
+    setLocation(loc);
+    setJobType(jt);
+    setPage(0);
+  }, [searchParams]);
 
   const fetchJobs = async () => {
     setLoading(true);
@@ -75,7 +86,7 @@ export default function JobsPage() {
 
   useEffect(() => {
     fetchJobs();
-  }, [page, jobType, sortBy, direction]);
+  }, [page, keyword, location, jobType, sortBy, direction]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -179,23 +190,23 @@ export default function JobsPage() {
           </Button>
         </form>
 
-        {/* Quick Indian & Foreign Location Filter Chips */}
+        {/* Quick Location Filter Chips */}
         <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
-          <span className="text-slate-500 font-medium">Quick Locations:</span>
+          <span className="text-slate-400 font-medium">Quick Locations:</span>
           {popularLocations.map((loc) => {
             const isSelected =
               (loc === 'All' && !location) ||
-              location.toLowerCase().includes(loc.toLowerCase());
+              (loc !== 'All' && location.toLowerCase().includes(loc.toLowerCase()));
 
             return (
               <button
                 key={loc}
                 type="button"
                 onClick={() => handleLocationChip(loc)}
-                className={`px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-teal-500/20 text-teal-700 dark:text-teal-300 border border-teal-500/40 shadow-glow-teal'
-                    : 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10'
+                    ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40 shadow-glow-teal'
+                    : 'bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {loc}
@@ -206,7 +217,7 @@ export default function JobsPage() {
       </div>
 
       {/* Filter & Sort Controls Bar */}
-      <div className="glass-panel p-4 rounded-2xl border border-slate-200 dark:border-white/10 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="glass-panel p-4 rounded-2xl border border-white/10 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Job Type Pills */}
         <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
           {[
@@ -224,8 +235,8 @@ export default function JobsPage() {
               }}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 jobType === type.value
-                  ? 'bg-violet-100 dark:bg-violet-600/25 text-violet-800 dark:text-violet-300 border border-violet-300 dark:border-violet-500/40 shadow-sm dark:shadow-glow-violet'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent'
+                  ? 'bg-violet-600/25 text-violet-300 border border-violet-500/40 shadow-glow-violet'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
               }`}
             >
               {type.label}
@@ -235,7 +246,7 @@ export default function JobsPage() {
 
         {/* Sort Dropdown */}
         <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
+          <span className="text-xs text-slate-400 font-medium whitespace-nowrap">
             Sort by:
           </span>
           <select
@@ -246,11 +257,11 @@ export default function JobsPage() {
               setDirection(dir);
               setPage(0);
             }}
-            className="rounded-xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white text-xs py-1.5 px-3 focus:outline-none focus:border-violet-500"
+            className="rounded-xl bg-navy-900 border border-white/10 text-white text-xs py-1.5 px-3 focus:outline-none focus:border-violet-500 cursor-pointer"
           >
-            <option value="createdAt,desc" className="bg-white dark:bg-navy-900 text-slate-800 dark:text-white">Newest First</option>
-            <option value="salaryMax,desc" className="bg-white dark:bg-navy-900 text-slate-800 dark:text-white">Highest Salary</option>
-            <option value="deadline,asc" className="bg-white dark:bg-navy-900 text-slate-800 dark:text-white">Deadline Approaching</option>
+            <option value="createdAt,desc" className="bg-navy-900 text-white">Newest First</option>
+            <option value="salaryMax,desc" className="bg-navy-900 text-white">Highest Salary</option>
+            <option value="deadline,asc" className="bg-navy-900 text-white">Deadline Approaching</option>
           </select>
         </div>
       </div>
@@ -259,12 +270,12 @@ export default function JobsPage() {
       {loading ? (
         <SkeletonLoader type="card" count={6} />
       ) : jobs.length === 0 ? (
-        <Card className="p-16 text-center border-dashed border-slate-200 dark:border-white/10 max-w-xl mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-500 dark:text-slate-400 mx-auto mb-4">
+        <Card className="p-16 text-center border-dashed border-white/10 max-w-xl mx-auto">
+          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-4">
             <Briefcase className="w-8 h-8" />
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No jobs match your search</h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6">
+          <h3 className="text-lg font-bold text-white mb-2">No jobs match your search</h3>
+          <p className="text-xs text-slate-400 max-w-sm mx-auto mb-6">
             Try clearing filters or searching with different keywords like 'Java', 'React', or 'Bangalore'.
           </p>
           <Button
@@ -287,21 +298,21 @@ export default function JobsPage() {
               key={job.id}
               hover={true}
               onClick={() => navigate(`/jobs/${job.id}`)}
-              className="cursor-pointer flex flex-col justify-between group"
+              className="cursor-pointer flex flex-col justify-between group p-6 bg-navy-850/80 border border-white/10"
             >
               <div>
                 {/* Card Top: Company initial + Save Bookmark + Job Type */}
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-100 to-teal-50 dark:from-violet-600/20 dark:to-teal-500/20 border border-violet-200/80 dark:border-white/10 flex items-center justify-center font-black text-violet-700 dark:text-white text-base shadow-sm">
+                    <div className="w-11 h-11 rounded-xl bg-violet-600/20 border border-white/10 flex items-center justify-center font-black text-white text-base shadow-sm">
                       {job.companyName ? job.companyName.charAt(0) : 'C'}
                     </div>
                     <div>
-                      <h4 className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                      <h4 className="text-xs font-semibold text-slate-300">
                         {job.companyName}
                       </h4>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-slate-400 dark:text-slate-500" />
+                      <p className="text-[11px] text-slate-400 flex items-center gap-1 font-medium">
+                        <MapPin className="w-3 h-3 text-slate-400" />
                         {job.location}
                       </p>
                     </div>
@@ -313,23 +324,23 @@ export default function JobsPage() {
                     disabled={savingJobId === job.id}
                     className={`p-2 rounded-xl border transition-all cursor-pointer ${
                       job.saved
-                        ? 'bg-rose-50 text-rose-600 border-rose-200 dark:bg-rose-500/20 dark:text-rose-400 dark:border-rose-500/40 shadow-sm'
-                        : 'bg-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-200 border-slate-200 dark:bg-white/5 dark:text-slate-400 dark:hover:text-white dark:border-white/5 dark:hover:border-white/20'
+                        ? 'bg-rose-500/20 text-rose-400 border-rose-500/40 shadow-sm'
+                        : 'bg-white/5 text-slate-300 hover:text-white border-white/10 hover:border-white/20 hover:bg-white/10'
                     }`}
                   >
                     <Bookmark
-                      className={`w-4 h-4 ${job.saved ? 'fill-rose-500 text-rose-500 dark:fill-rose-400 dark:text-rose-400' : ''}`}
+                      className={`w-4 h-4 ${job.saved ? 'fill-rose-400 text-rose-400' : ''}`}
                     />
                   </button>
                 </div>
 
-                {/* Job Title */}
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors mb-2 line-clamp-1">
+                {/* Job Title - Always bright white, subtle violet hover */}
+                <h3 className="text-lg font-bold text-white group-hover:text-teal-300 transition-colors mb-2 line-clamp-1">
                   {job.title}
                 </h3>
 
                 {/* Description snippet */}
-                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 leading-relaxed">
+                <p className="text-xs text-slate-300 line-clamp-2 mb-4 leading-relaxed font-normal">
                   {job.description}
                 </p>
 
@@ -339,13 +350,13 @@ export default function JobsPage() {
                     {job.skills.split(',').slice(0, 3).map((s) => (
                       <span
                         key={s}
-                        className="text-[11px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 dark:bg-white/5 dark:border-white/5 dark:text-slate-300 font-medium"
+                        className="text-[11px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-200 font-medium"
                       >
                         {s.trim()}
                       </span>
                     ))}
                     {job.skills.split(',').length > 3 && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-500 dark:bg-white/5 dark:text-slate-500 font-medium">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-white/5 text-slate-400 font-medium">
                         +{job.skills.split(',').length - 3}
                       </span>
                     )}
@@ -354,17 +365,17 @@ export default function JobsPage() {
               </div>
 
               {/* Bottom Card Footer: Salary + Job Type badge */}
-              <div className="pt-4 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] uppercase font-semibold text-slate-500 block">
+                  <span className="text-[10px] uppercase font-semibold text-slate-400 block">
                     Salary
                   </span>
-                  <span className="text-sm font-bold text-teal-600 dark:text-teal-300">
+                  <span className="text-sm font-black text-teal-300">
                     {formatSalary(job.salaryMin, job.salaryMax, job.currency)}
                   </span>
                 </div>
 
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 dark:bg-violet-500/10 dark:text-violet-300 dark:border-violet-500/20">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-violet-500/15 text-violet-300 border border-violet-500/25">
                   {job.jobType.replace('_', ' ')}
                 </span>
               </div>

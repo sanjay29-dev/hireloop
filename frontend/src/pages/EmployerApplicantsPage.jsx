@@ -122,7 +122,7 @@ export default function EmployerApplicantsPage() {
             <ArrowLeft className="w-4 h-4" /> Back to My Jobs
           </Link>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Applicants: <span className="text-teal-600 dark:text-teal-400">{job?.title || 'Job'}</span>
             </h1>
             <span className="px-3 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 dark:bg-violet-500/20 dark:text-violet-300 text-xs font-bold dark:border-violet-500/30">
@@ -146,7 +146,7 @@ export default function EmployerApplicantsPage() {
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 filter === tab
                   ? 'bg-teal-100 text-teal-800 border border-teal-300 dark:bg-teal-500/20 dark:text-teal-300 dark:border-teal-500/40 shadow-sm dark:shadow-glow-teal'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
               }`}
             >
               {tab} (
@@ -166,7 +166,7 @@ export default function EmployerApplicantsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search candidate or skill..."
-            className="w-full rounded-xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white text-xs pl-9 pr-3 py-2 focus:outline-none focus:border-violet-500"
+            className="w-full rounded-xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-white/10 text-white text-xs pl-9 pr-3 py-2 focus:outline-none focus:border-violet-500"
           />
         </div>
       </div>
@@ -179,7 +179,7 @@ export default function EmployerApplicantsPage() {
           <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-4">
             <Users className="w-8 h-8" />
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No Applicants Found</h3>
+          <h3 className="text-lg font-bold text-white mb-2">No Applicants Found</h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
             {applicants.length === 0
               ? 'Applications will appear here as candidates submit for this position.'
@@ -194,7 +194,7 @@ export default function EmployerApplicantsPage() {
                 {/* Candidate Info */}
                 <div className="space-y-2 flex-1">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-base font-bold text-white">
                       {app.candidateName}
                     </h3>
                     <span className="text-xs text-slate-500 dark:text-slate-400">({app.candidateEmail})</span>
@@ -225,7 +225,7 @@ export default function EmployerApplicantsPage() {
                       {app.candidateSkills.split(',').slice(0, 4).map((s) => (
                         <span
                           key={s}
-                          className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/5 dark:text-slate-300 font-medium"
+                          className="text-[10px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 font-medium"
                         >
                           {s.trim()}
                         </span>
@@ -245,7 +245,7 @@ export default function EmployerApplicantsPage() {
                       value={app.status}
                       disabled={statusUpdatingId === app.id}
                       onChange={(e) => handleStatusChange(app.id, e.target.value)}
-                      className="rounded-xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-white/10 text-xs font-semibold px-3 py-1.5 text-slate-800 dark:text-white focus:outline-none focus:border-teal-500"
+                      className="rounded-xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-white/10 text-xs font-semibold px-3 py-1.5 text-white focus:outline-none focus:border-teal-500"
                     >
                       <option value="APPLIED">Applied</option>
                       <option value="SHORTLISTED">Shortlisted</option>

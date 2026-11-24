@@ -159,7 +159,7 @@ export default function CandidateProfilePage() {
         >
           <ArrowLeft className="w-4 h-4" /> Back to Candidate Dashboard
         </Link>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
           Candidate Profile
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
@@ -176,7 +176,7 @@ export default function CandidateProfilePage() {
                 <FileCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">Default PDF Resume</h3>
+                <h3 className="text-base font-bold text-white">Default PDF Resume</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   Used automatically when applying for any job on Hireloop.
                 </p>
@@ -198,7 +198,7 @@ export default function CandidateProfilePage() {
             <div className="text-xs text-slate-600 dark:text-slate-300">
               {profile?.hasResume ? (
                 <div className="space-y-1">
-                  <p className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                  <p className="font-semibold text-white flex items-center gap-2">
                     <FileText className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                     {profile.defaultResumePath.split('/').pop()}
                   </p>
